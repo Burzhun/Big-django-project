@@ -1,0 +1,77 @@
+{% load wagtailimages_tags %}
+<div class="modal fade" id="expert_question_modal" tabindex="-1" role="dialog" aria-labelledby="expertModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title" id="expertModalLabel">Вопрос эксперту</div>
+                <div class="send_question authorized">
+                    <div class="sender">
+                        <div class="avatar">
+                            <a href="{% url 'profile' id=request.user.id %}">
+                                <img src="{{ request.user.get_avatar }}" alt="{{ request.user.full_name  }}" width="50" height="50">
+                            </a>
+                        </div>
+                        <div class="name">
+                            <a href="{% url 'profile' id=request.user.id %}">{{ request.user.full_name }}</a>
+                        </div>
+                    </div>
+                    {% for expert in experts_by_section %}
+                    <div id="expert_form_icon_{{ expert.section }}" class="recipient">
+                        <div class="avatar">
+                            {% image expert.image fill-50x50 %}
+                        </div>
+                        <div class="name">
+                            <a href="{{ expert.get_url }}">{{ expert.title }}</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="add_question_form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" id="expert_slug" name="section" value="{{ page.get_url }}">
+                    <div class="form-group">
+                        <label for="input_question_title" class="col-lg-5 col-md-5 control-label">Выбери рубрику:</label>
+                        <div class="col-lg-7 col-md-7">
+                            <div class="dropdown dropdown-block">
+                                <button class="btn btn-default btn-block dropdown-toggle" type="button" id="rubric_dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span id="section_item_form">{{ page.get_section_display }}</span>
+                                <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="rubric_dropdownMenu">
+                                    {% for expert in experts_by_section %}
+                                        <li><a onclick="changeExpert({{ expert.section }}, '{{ expert.get_url }}', '{{ expert.get_section_display }}');">{{ expert.get_section_display }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="title">
+                        <label for="input_question_title" class="col-lg-5 col-md-5 control-label">Твой вопрос: <small>Будь краткой. Подробности опиши ниже</small></label>
+                        <div class="col-lg-7 col-md-7">
+                            <input type="text" name="title" class="form-control" id="input_question_title" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group" id="text">
+                        <label for="input_question_text" class="col-lg-5 col-md-5 control-label">Твои пояснения: <small>Опиши вопрос во всех подробностях(по возможности - грамотно). У тебя есть на это 1000 знаков.</small></label>
+                        <div class="col-lg-7 col-md-7">
+                            <textarea name="text" class="form-control" id="input_question_text" rows="5"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group error-message" style="display:none;">
+                        <div class="col-lg-12 col-md-12" id="errors">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-5 col-md-offset-5 col-lg-7 col-md-7">
+                            <button type="submit" name="create" class="btn btn-lg btn-primary" id="add_question_form_submit" onclick="return false;">Задать вопрос</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

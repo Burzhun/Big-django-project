@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+
+{% block title %}
+    Поиск: {{ q }}
+{% endblock %}
+
+{% block extra_css %}
+    <script>
+        (function () {
+            var cx = 'partner-pub-3332571613611724:wxtimbps9ix';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                '//www.google.ru/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        })();
+
+    </script>
+{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Поиск</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection">
+        <gcse:search
+                enableHistory="true"
+                enableAutoComplete="true"
+                autoCompleteMatchType="prefix"
+                autoCompleteMaxCompletions="10"
+                autoCompleteMaxPromotions="3"
+                autoCompleteValidLanguages="ru;en"
+                linkTarget="_blank"
+                noResultsString="К сожалению, по твоему запросу ничего не найдено. Попробуй изменить параметры поиска."
+                adchannel="1237529704"
+                adclient="pub-3332571613611724"
+                queryParameterName="q">
+        </gcse:search>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

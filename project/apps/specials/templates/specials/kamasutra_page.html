@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper sp_kamasutra clearfix">
+        <article id="block_ws_adv" class="container clearfix">
+            <div class="lead">
+                <header>
+                    <h1>
+                        {% if page.full_title %}
+                            {{ page.full_title }}
+                        {% else %}
+                            {{ page.title }}
+                        {% endif %}
+                    </h1>
+                    <div class="article_breadcrumbs">
+                        <ol>
+                            {% for position in page_positions %}
+                                <li>{{ position.title }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </header>
+            </div>
+            <aside id="inc_block_right" class="slidesection">
+                <div class="advertise">
+                    <div>{% load_banner banner_id='300x600' %}</div>
+                </div>
+            </aside>
+            <div id="inc_block_main" class="mainsection">
+                <div class="text clearfix">
+                    <div class="quiz">
+                        <div class="voting-form-box">
+                            <div class="question">Выбери, чем вы займетесь сегодня</div>
+                            <form action="{{ parent_page.get_url }}" method="get">
+                                <fieldset>
+                                    {% for position in positions %}
+                                        <div class="custom-checkbox">
+                                            <input type="checkbox" name="position[]" value="{{ position.id }}"
+                                                   id="vote_radio_{{ position.id }}">
+                                            <label for="vote_radio_{{ position.id }}">{{ position.title }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </fieldset>
+                                <button class="btn" type="submit">Подобрать позу</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="kamasutra-body">
+                        <div class="gallery">
+                            <div class="img">
+                                {% image page.preview_picture fill-454x272 width=454 height=272  %}
+                            </div>
+                            <a class="arrow-left arrow" href="{{ prev_page.get_url }}" data-id="{{ prev_page.slug }}"></a>
+                            <a class="arrow-right arrow" href="{{ next_page.get_url }}" data-id="{{ next_page.slug }}"></a>
+
+                            <div class="s-rate clearfix">
+                                <p>Оцени позу:</p>
+
+                                <div class="hreview-aggregate visuallyhidden">
+                                    <span class="item">
+                                        <span class="fn">{{ page.title }}</span>
+{#                                        <img src="/upload/img_get/d4/d4552c5924aeb8f0403d582e3b620a15_cropped_454x272.jpg"#}
+{#                                             class="photo">#}
+                                    </span>
+                                    <span class="rating">
+                                        <span class="average">9.8</span>
+                                        <span class="best">10</span>
+                                    </span>
+                                    <span class="count">96</span>
+                                </div>
+                                <div class="rating" id="ratings_{{ page.id }}">
+                                    <ul class="s-stars">
+                                        <li style="width: {{ page.rating_percent }}%" class="s-stars-fill"></li>
+                                        {% for i in '54321' %}
+                                            <li class="star_{{ i }}">
+                                                <a href="#" class="a" title="{{ i }}" rel="{{ i }}"
+                                                    data-object="{{ page.id }}"
+                                                    data-type="pose">
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="b-rating-success" style="display: none">Спасибо, твой голос принят</div>
+                                    <div class="b-rating-fail" style="display: none">Ошибка</div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ page.body|safe }}
+                    </div>
+                    <p></p>
+                </div>
+
+                <footer class="clearfix">
+                    <div class="social">
+                        <div>
+                            <noindex>
+                                <ul class="social-likes">
+                                    <li>
+                                        <a rel="nofollow" class="social_share fb-share" data-type="fb">
+                                            <i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a rel="nofollow" class="social_share vk-share" data-type="vk">
+                                            <i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a rel="nofollow" class="social_share tw-share" data-type="tw">
+                                            <i class="l-ico">TW:</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </noindex>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </div>
+    <div class="wrapper comments gray clearfix">
+        <div class="container">
+            <div class="comments_header clearfix">
+                <a name="comments"></a>
+                <h3>Комментарии</h3>
+                {% if hide_comments %}<a href="#" class="open_comments"></a>{% endif %}
+            </div>
+        </div>
+        <div class="container comments_wrapper" {% if hide_comments %}style="display: none;"{% endif %}>
+            <section>
+                <div class="b-comments">
+                    {% for comment in page.all_comments %}
+                        {% include 'content/comment.html' %}
+                    {% endfor %}
+                </div>
+                <div class="reply-form-container">
+                    <div class="section_title clearfix">
+                        <div class="title">Добавить комментарий</div>
+                    </div>
+
+                    <div class="b-cmtForm clearfix">
+                        <form {% if request.user.is_authenticated %}action="add_comment/"{% endif %} method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent" value='0'>
+
+                            <div class="avatar">
+                                <img src="
+
+
+                                        {% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'img/no_avatar.png' %}{% endif %}"
+                                     alt="{{ request.user.username }}" width="60" height="60">
+                            </div>
+                            <div class="ta-holder">
+                                <textarea name="text" {% if not request.user.is_authenticated %}class="login_btn_open_popup"{% endif %}></textarea>
+                                {% if request.user.is_authenticated %}
+                                    <div style="margin-top: 15px;" class="g-recaptcha"
+                                         data-sitekey="6Ldy-VAUAAAAAOuZc0KYktWqtby3lTsk5tiPk2ba"></div>
+                                {% endif %}
+                            </div>
+                            <div class="errortext">
+                            </div>
+                            <div class="b-socialset">
+                            </div>
+                            <div class="b-buttonset clearfix">
+                                <input type="submit" value="Комментировать" class="btn {% if not request.user.is_authenticated %}login_btn_open_popup{% endif %}">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

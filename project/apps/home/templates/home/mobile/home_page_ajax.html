@@ -1,0 +1,33 @@
+{% load banner_tags %}
+{% load content_widgets %}
+{% load static %}
+
+<script>
+    var ids = {{ ids }};
+</script>
+{% load_banner banner_id='mobile_top' %}
+<div class="wrapper">
+    <ul class="announce_list">
+        {% with entries as content %}
+            {% include 'content/blocks/mobile_block.html' %}
+        {% endwith %}
+    </ul>
+</div>
+<div class="w__loader">
+    <div class="container">
+        <div class="w__loader__wrapp">
+            <div class="w__btn__loader">
+                <span>Показать еще</span>
+                <img src="{% static 'img/w__loader.gif' %}" alt="" class="w__loader__hidden">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    googletag.cmd.push(function () {
+        globalGptAdSlots;
+        index = gptadslots.length;
+        googletag.pubads().refresh(gptadslots.slice(globalGptAdSlots, index));
+        globalGptAdSlots = gptadslots.length;
+    });
+</script>

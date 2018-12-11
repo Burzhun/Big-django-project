@@ -1,0 +1,31 @@
+{% extends "content/article_page.html" %}
+{% load wagtailimages_tags content_widgets %}
+{% block entry_title %}
+    <header>
+        <h1>
+            {% if page.full_title %}
+                {{ page.full_title }}
+            {% else %}
+                {{ page.title }}
+            {% endif %}
+        </h1>
+        <div class="text-lead">
+            {% if page.full_lead %}
+                {{ page.full_lead }}
+            {% else %}
+                {{ page.short_lead }}
+            {% endif %}
+        </div>
+        <div class="blogger">
+            <a href="{{ page.get_parent.get_url }}{{ page.category.slug }}" class="img">
+                {% image page.category.preview_picture fill-60x60 width=60 height=60 %}
+            </a>
+            <div class="name"><a href="{{ page.get_parent.get_url }}{{ page.category.slug }}">{{ page.category.title }}</a></div>
+            <div class="type">{{ page.category.short_description|default:"" }}</div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

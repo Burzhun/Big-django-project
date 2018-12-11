@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="layout">
+        <div class="container">
+            <div class="row">
+                <form method="post" id="profile_edit_form" enctype="multipart/form-data" onsubmit="return cabinetCheckDate()">
+                    {% csrf_token %}
+                    <div class="col-lg-3 col-md-4">
+                        <div class="profile_card">
+                            <div class="img">
+                                <img src="{% if not request.user.avatar  %}{% static 'img/no_avatar.jpg' %}{% else %}{{ request.user.avatar.url }}{% endif %}" alt="" height="180" width="180">
+                                <div class="aboutme__ava__btns">
+                                    <input type="file" id="file" name="blog_AVATAR" style="visibility: hidden;">
+                                    <script>
+                                    $(document).ready(function () {
+                                    $("#file").css('visibility', 'visible').customInputFile({
+                                    filename: "#filename",
+                                    replacement: $('<a />', {
+                                        "text": "Сменить аватар"
+                                        })
+                                        });
+                                        });
+                                        </script>
+                                        <input type="hidden" name="avatarDel" id="blog_AVATAR_del">
+                                        <p>Внимание! Загружаемое фото должно быть в формате <span>.jpg</span> или <span>.png</span></p>
+                                    </div>
+                                </div>
+                                
+                                <p id="filename"></p>
+                                <p id="cancel_delete" style="display: none;">Аватар будет удален, после клика на кнопку "Сохранить изменения" <a href="#" onclick="$('#blog_AVATAR_del').val('');$('#cancel_delete').hide();return false;">[отменить]</a></p>
+                                <div class="name">{{ request.user.username }} </div>
+                                {# <div class="energy"> #}
+                                    {# Твоя энергия: <span class="value"><span class="glyphicon glyphicon-flash"></span></span> #}
+                                {# </div> #}
+                                <ul class="profile_menu">
+                                    <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Уведомления</a></li>
+                                    <li><a href="?logout=yes"><span class="glyphicon glyphicon-log-out"></span>Выход</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-8">
+                            <div class="content_block">
+                                <h1>Настройки</h1>
+                                <form id="personal_notice_form" action="/personal/edit/" method="post">
+                                    <input type="hidden" name="sessid" id="sessid" value="838b025dc183a6cf257dad77aa36246b">
+                                    <div class="user_profile">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="active"><a href="#settings_tab" aria-controls="settings_tab" role="tab" data-toggle="tab">Почтовые уведомления</a></li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="settings_tab">
+                                                <ul class="profile_settings_list">
+                                                    <li class="checkbox"><label><input name="notifyCommentReply" checked="true" value="1" type="checkbox"><span>Кто-то ответил на твой коментарий</span></label></li>
+                                                    <li class="checkbox"><label><input name="notifyQuestionReply" checked="true" value="1" type="checkbox"><span>Эксперт ответил на твой вопрос</span></label></li>
+                                                    <li class="checkbox"><label><input name="notifyPrize" checked="true" value="1" type="checkbox"><span>Новости от "Аукциона WH"</span></label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <div class="col-lg-offset-3 col-md-offset-3 col-lg-9 col-md-9 ">
+                                                    <button type="submit" name="save" class="btn btn-primary btn-lg">Сохранить изменения</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

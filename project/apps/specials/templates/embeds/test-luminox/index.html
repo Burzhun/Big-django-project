@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	
+	<link rel="stylesheet" href="{% static 'embeds/test-luminox/css/style.css' %}">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div class="wrapper_test_dev">
+
+		<div class="wrapper_test">
+			<div class="wrapper_test-zagl">
+				<div class="zagl_test">
+					<img src="{% static 'embeds/test-luminox/img/front.png' %}" alt="">
+				</div>
+				<div class="name_title_big_front">Живешь ли ты полной жизнью?</div>
+                <div class="rich-text">
+                    <p>Хватит тратить время – оно принадлежит только тебе! Хватит бросать на полпути дело, быть может, всей твоей жизни — разве ты хочешь, чтобы твою идею воплотил кто-то другой и прославился? Хватит оправдываться, что у тебя нет времени на то, в чем ты наиболее талантлив. Пора понять, живешь ли ты полной жизнью? Не теряешь ли ты времени понапрасну — и что делать, если так оно и есть?</p>
+                    <p>Пройди наш тест, чтобы определиться, и получи шанс выиграть хронограф Luminox!</p>
+                </div>
+				<div class="start_button_test btn_test_blue">
+					Пройти
+				</div>
+
+			</div>
+			<form action="" class="test_wrapper-form">
+				
+
+				<div class="change_content_test">
+
+					<div class="test_text-content">
+						Как часто ты обещаешь себе «с понедельника» пойти учиться водить мотоцикл, о котором мечтаешь с
+						детства?
+					</div>
+
+
+					<div class="clock_test">
+						<label>
+							У меня столько дел, что никак не найду времени. Но в понедельник обязательно начну поиски мотошколы.
+
+							<input type="radio" name="gorod" data-verniy="1">
+						</label>
+						<label>
+							Три года обещал, но взял себя в руки, распределил дела и записался на курсы — на следующей неделе первое
+							занятие.
+							<input type="radio" name="gorod" data-verniy="2">
+						</label>
+						<label>
+							Я не откладываю мечты в долгий ящик, поэтому еще весной получил права и уже откатал первый сезон.
+							<input type="radio" name="gorod" data-verniy="3">
+						</label>
+					</div>
+				</div>
+				<input type="hidden" class="koll_balov_1" value="0">
+				<input type="hidden" class="koll_balov_2" value="0">
+				<input type="hidden" class="koll_balov_3" value="0">
+				<input class="nex_test_text" data-countTest="1" type="submit" value="Продолжить">
+
+			</form>
+
+
+		</div>
+	</div>
+	<script src="{% static 'embeds/test-luminox/js/main.js' %}"></script>
+</body>
+
+</html>

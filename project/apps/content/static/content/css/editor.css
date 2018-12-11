@@ -1,0 +1,29 @@
+.hallotoolbar.stream-field {
+    margin-top: inherit;
+}
+.richtext-image.right {
+    float: right;
+    margin-left: 16px;
+}
+.richtext-image.left {
+    float: left;
+    margin-right: 16px
+}
+.richtext-image.full-width{
+    max-width: 100%;
+    height: auto;
+}
+.mce-panel {
+    margin: 0 auto !important;
+}
+.mce-content-body {
+    padding-left: 210px !important;
+    padding-right: 210px !important;
+}
+
+.red-letter {
+    color: #e63917;
+    float: left;
+    font: 101px/72px 'mhrg';
+    margin: 0 10px 0 0;
+}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+   Подписка
+{% endblock %}
+
+{% block seo %}
+    {% if not request.is_preview %}
+        <meta name="title" content="Подписка">
+        <meta name="description" content="Подписка на журнал Men's Health"/>
+
+        <meta property="og:title" content="Подписка">
+        <meta property="og:description" content="Подписка на журнал Men's Health">
+
+    {% endif %}
+{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Подписка</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div id="block_ws_adv" class="container page_archive_detail clearfix" style="min-height: 453px;">
+        <h1>Подписка</h1>
+        <div id="inc_block_main" class="mainsection" style="height: 700px">
+
+            <div class="leftsection">
+                {% image last_issue.cover fill-298x388 width=298 height=388 class="bordered-img" %}
+            </div>
+            <div class="text clearfix">
+                <h2>Men’s Health</h2>
+                <style>
+                    .two_columns {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .switcher {
+                        width: 33%;
+                    }
+                </style>
+                <div class="left-block-aside-nav">
+                    <div class="vers-switch-block ">
+                        <a href="https://itunes.apple.com/ru/app/mens-health-russia/id406358385" target="_blank"
+                           class="switcher">
+                            <img src="{% static 'img/ipad-ic.png' %}" alt="">
+                            <p>iPad-версия</p>
+                        </a>
+
+                        <a href="https://itunes.apple.com/ru/app/mens-health-russia/id406358385" target="_blank"
+                           class="switcher">
+                            <img src="{% static 'img/iphone-ic.png' %}" alt="">
+                            <p>iPhone-версия</p>
+                        </a>
+                        <a href="https://play.google.com/store/newsstand/details/Men_s_Health_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F?id=CAow76qeCQ"
+                           target="_blank" class="switcher">
+                            <img src="{% static 'img/android-ic.png' %}" alt="">
+                            <p>Android-версия</p>
+                        </a>
+                    </div>
+                    <div class="vers-switch-block two_columns">
+                        <a href="https://podpiska.pochta.ru/press/%D0%9F1455" class="switcher">
+                            <img src="{% static 'img/print-ic.png' %}" alt="">
+                            <p>Печатная версия</p>
+                        </a>
+                        <a href="https://podpiska.pochta.ru/press/%D0%9F5886" class="switcher">
+                            <img src="{% static 'img/print-ic.png' %}" alt="">
+                            <p>MH Mini</p>
+                        </a>
+                    </div>
+                </div>
+                <br>
+                <p><b> Наши контакты:</b> <br> (495) 232-92-92 <br> subscription@moscowtimes.org
+                </p></div>
+        </div>
+        <div id="inc_block_right" class="slidesection">
+            <div class="float-block">
+                <div>
+                    {% load_banner banner_id='300x600' %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

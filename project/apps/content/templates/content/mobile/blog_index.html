@@ -1,0 +1,38 @@
+{% extends "mobile/base.html" %}
+{% load content_widgets %}
+{% load banner_tags wagtailimages_tags %}
+
+{% block content %}
+    <div role="main" class="ui-content">
+        {% if page_obj %}
+            <div class="wrapper">
+                <article>
+                    <div class="lead">
+                        <header>
+                            {% for blog, _ in blogs %}
+                                <h1>{{ blog.title }}</h1>
+                                <div class="blogger clearfix">
+                                    <a href="{{ page.get_url }}{{ blog.slug }}" class="img ui-link">
+                                        {% image blog.preview_picture fill-60x60 width=60 height=60 %}
+                                    </a>
+                                    <div class="name">
+                                        <a href="{{ page.get_url }}{{ blog.slug }}" class="ui-link">{{ blog.title }}</a>
+                                    </div>
+                                    <div class="type">{{ blog.description|default:"" }}</div>
+                                </div>
+                            {% endfor %}
+                        </header>
+                    </div>
+                </article>
+            </div>
+        {% else %}
+            <div class="fullwidth">
+                <h1>{{ page.title }}</h1>
+            </div>
+        {% endif %}
+        <div class="wrapper">
+            {% include 'content/mobile/blog_index_ajax.html' %}
+        </div>
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}

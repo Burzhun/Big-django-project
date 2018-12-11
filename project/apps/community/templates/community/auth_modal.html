@@ -1,0 +1,35 @@
+<div id="login_box">
+    <div class="popup_title">Войти на сайт</div>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="backurl" value="{{ request.path }}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" class="form-control" tabindex="1" maxlength="255">
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <a href="/accounts/forgot_password/" class="forgot_password">Забыл пароль?</a>
+            <input type="password" id="password" name="password" class="form-control" tabindex="2" maxlength="255">
+        </div>
+        <div class="form-group-set">
+            <div style="margin-top: 15px;" class="g-recaptcha"
+                                     data-sitekey="6Ldy-VAUAAAAAOuZc0KYktWqtby3lTsk5tiPk2ba"></div>
+
+        </div>
+
+        <div class="form-group-set">
+            <button type="submit" value="Войти" class="btn" tabindex="3">Войти</button>
+        </div>
+        <div class="form-group-set social">
+            <span class="title">ВОЙТИ ЧЕРЕЗ АККАУНТ СОЦСЕТЕЙ:</span>
+            <a href="{% url 'social:begin' 'vk-oauth2' %}?next={{ request.path }}" id="vk" class="vk-auth"><ins class="b-soc-ico ico-vk gr"></ins></a>
+            <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb" class="fb-auth"><ins class="b-soc-ico ico-fb gr"></ins></a>
+        </div>
+        <div class="form-group-set">
+            <span class="title">Нет аккаунта на сайте?</span>
+            <a href="{% url 'registration' %}" class="register">Зарегистрируйся</a>
+        </div>
+
+    </form>
+</div>

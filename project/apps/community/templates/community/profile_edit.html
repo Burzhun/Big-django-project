@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% block title %}
+    Анкета
+{% endblock %}
+
+{% load wagtailcore_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>{{ request.user.full_name }}</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper profile clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <h1>Личный кабинет</h1>
+            <div class="profile_menu">
+                <div class="profile_box">
+                    <div class="name">{{ request.user.full_name }}</div>
+                    <div class="avatar">
+                        <img id="user-avatar-img"
+                             src="{% if not request.user.avatar %}{% static 'img/no_avatar.png' %}{% else %}{{ request.user.avatar.url }}{% endif %}"
+                             width="180"
+                             height="180" alt="">
+                        <a id="avatar_edit_link" href="#">Редактировать аватар</a>
+                        <input style="display:none;" type="file" id="avatar_edit_input">
+                    </div>
+                    <ul class="answers_list">
+                        <li>
+                            <a href="{% url 'logout' %}">Выход</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <aside id="inc_block_right" class="">
+                <div class="advertise">
+                    <div>{% load_banner banner_id='300x600' %}</div>
+                </div>
+            </aside>
+
+            <div id="inc_block_main" class="profile_page profile_page_social clearfix">
+                <div class="section_title">
+                    <div class="title">Анкета</div>
+                </div>
+                {% if form.errors %}
+                    <div class="form_feedback incorrect" style="">
+                        <span class="title">При заполнении анкеты возникли ошибки</span>
+                    </div>
+                {% endif %}
+
+                <form class="form-horizontal" role="form" method="post" id="form1" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form.first_name.label_tag }}
+                            <div class="">
+                                {{ form.first_name }}
+                                {{ form.first_name.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.last_name.label_tag }}
+                            <div class="">
+                                {{ form.last_name }}
+                                {{ form.last_name.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.email.label_tag }}
+                            <div class="">
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="inline-group">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        {{ form.is_public_email }}
+                                        {{ form.is_public_email.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="block">
+
+                        <div class="form-group">
+                            {{ form.password1.label_tag }}
+                            <div class="">
+                                {{ form.password1 }}
+                                {{ form.password1.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.password2.label_tag }}
+                            <div class="">
+                                {{ form.password2 }}
+                                {{ form.password2.errors }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form.gender.label_tag }}
+                            <div class="">
+                                {{ form.gender }}
+                                {{ form.gender.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.b_date.label_tag }}
+                            <div class="">
+                                {{ form.b_date }}
+                                {{ form.b_date.errors }}
+                            </div>
+                            <div class="inline-group">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        {{ form.is_public_b_date }}
+                                        {{ form.is_public_b_date.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.country.label_tag }}
+                            <div class="">
+                                {{ form.country }}
+                                {{ form.country.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.city.label_tag }}
+                            <div class="">
+                                {{ form.city }}
+                                {{ form.city.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.has_children.label_tag }}
+                            <div class="">
+                                {{ form.has_children }}
+                                {{ form.has_children.errors }}
+                                <div class="inline-group">
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            {{ form.is_public_has_children }}
+                                            {{ form.is_public_has_children.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.notes.label_tag }}
+                            <div class="">
+                                {{ form.notes }}
+                                {{ form.notes.errors }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <div class="inline-group">
+                            <button type="submit" name="save" class="btn">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

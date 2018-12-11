@@ -1,0 +1,81 @@
+{% if entries or widget_entries %}
+    {% load wagtailimages_tags %}
+    {% load banner_tags %}
+    {% if is_mobile %}
+        <div class="wrapper gray">
+            <section>
+                <header class="clearfix">
+                    <h3>Promotion</h3>
+                </header>
+
+                <div id="promotion_slider" class="swiper-container announce">
+                    <div class="swiper-wrapper">
+                        {% for item in widget_entries %}
+                            <div class="swiper-slide">
+                                <a href="{{ item.link }}" target="_blank" class="img">
+                                    <div class="img">
+                                        {% image item.icon fill-100x75 width=100 height=75 %}
+                                    </div>
+                                    <div class="title">{{ item.title }}</div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        {% for item in entries %}
+                            <div class="swiper-slide">
+                                <a href="{{ item.get_url }}" class="img">
+                                    <div class="img">
+                                        {% image item.preview_picture fill-100x75 width=100 height=75 %}
+                                    </div>
+                                    <div class="title">{{ item.title }}</div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div id="promotion_slider_pagination" class="pagination"></div>
+            </section>
+        </div>
+    {% else %}
+        <div class="wrapper promotion gray clearfix">
+            <div class="container">
+                <section>
+                    <header class="clearfix">
+                        <h3>Promotion</h3>
+                    </header>
+                    <div id="promotion_slider" class="announce_list swiper-container">
+                        <ul class="swiper-wrapper">
+                            {% for item in widget_entries %}
+                                <li class="swiper-slide">
+                                    <a href="{{ item.link }}" class="img" target="_blank" rel="noopener noreferrer">
+                                        {% image item.icon fill-300x215 width=300 height=215 %}
+                                    </a>
+                                    <div class="title">
+                                        <a href="{{ item.link }}" target="_blank"
+                                           rel="noopener noreferrer">{{ item.title }}</a>
+                                    </div>
+                                    <div class="description">
+                                        {{ item.description|default:"" }}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            {% for item in entries %}
+                                <li class="swiper-slide">
+                                    <a href="{{ item.get_url }}" class="img" rel="noopener noreferrer">
+                                        {% image item.preview_picture fill-300x215 width=300 height=215 %}
+                                    </a>
+                                    <div class="title">
+                                        <a href="{{ item.get_url }}"
+                                           rel="noopener noreferrer">{{ item.title }}</a>
+                                    </div>
+
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

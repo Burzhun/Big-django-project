@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load banner_tags %}
+{% load content_widgets %}
+{% load static %}
+
+
+{% block container_wrapper %}
+    <script>
+        var ids = {{ ids }};
+    </script>
+    {% for content in structure %}
+        {% if content.type == 'banner' %}
+            <div class="fullwidth_banner adv in-content-banner"
+                 {% if content.hidden %}style="display: none;"{% endif %}>
+                {% for block in content.items %}
+                    {{ block }}
+                {% endfor %}
+            </div>
+        {% elif content.type == 'content' %}
+            <div class="wrapper clearfix" {% if content.hidden %}style="display: none;"{% endif %}>
+                <div class="container clearfix">
+                    <div class="mainsection" id="inc_block_main">
+                        <div class="main_announce_list">
+                            <a name="nav_start"></a>
+                            <ul>
+                                {% for block in content.items %}
+                                    {{ block }}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% block side %}
+                        {% if forloop.counter0 == 0 and structure.1.type == 'banner' %}
+                            <div class="slidesection">
+                                <div class="fixed-block">
+                                    {% load_banner banner_id='300x600' %}
+                                    <div style="margin-top: 30px">
+                                        {% load_banner banner_id='240x150_1' %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% elif forloop.counter0 == 2 or structure.1.type != 'banner' or not structure.1 %}
+                            <div class="slidesection">
+                                <div class="fixed-block">
+                                    {% if structure.1.type != 'banner' or not structure.1 %}
+                                        {% load_banner banner_id='300x600' %}
+                                    {% endif %}
+                                    {% last_issue %}
+                                    {% promo_side_widget %}
+                                </div>
+                                <div class="float-block" data-counter="1">
+                                    {% load_banner banner_id='300x600' %}
+                                    <div style="margin-top: 30px">
+                                        {% load_banner banner_id='240x150_1' %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="rightsection">
+                                <div class="advertise">
+                                    {% load_banner banner_id='300x600' %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% elif content.type == 'special_field' %}
+            {% for block in content.items %}
+                {{ block }}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    <div class="w__loader">
+        <div class="container">
+            <div class="w__loader__wrapp">
+                <div class="w__btn__loader">
+                    <span>Показать еще</span>
+                    <img src="{% static 'img/w__loader.gif' %}" alt="" class="w__loader__hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+
+{% endblock %}
+

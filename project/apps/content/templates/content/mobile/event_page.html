@@ -1,0 +1,39 @@
+{% extends "content/mobile/article_page.html" %}
+
+{% load wagtailimages_tags content_widgets %}
+{% block entry_title %}
+    <header>
+        <h1>
+            {% if page.full_title %}
+                {{ page.full_title }}
+            {% else %}
+                {{ page.title }}
+            {% endif %}
+        </h1>
+        <div class="text-lead">
+            {% if page.full_lead %}
+                {{ page.full_lead }}
+            {% else %}
+                {{ page.short_lead }}
+            {% endif %}
+        </div>
+        <div class="header-info">
+            {% if page.place %}
+                <span class="place">{{ page.place }}</span>
+            {% endif %}
+            <span>
+                {{ page.active_from|date:"j E" }} {% if page.active_to %}–
+                {{ page.active_to|date:"j E Y" }}{% endif %}
+            </span>
+            {% if page.price %}
+                <span>
+                    {{ page.price }}
+                </span>
+            {% endif %}
+        </div>
+    </header>
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

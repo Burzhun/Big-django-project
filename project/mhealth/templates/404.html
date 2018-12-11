@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+
+{% block title %}
+    404
+{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>404</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div id="inc_block_main" class="mainsection">
+        <h1>404: Страница не найдена</h1>
+        <div class="text">
+            <p>Мы рады, что ты к нам заглянул. Но, к сожалению, такой страницы не существует.
+                Возможно, мы ее удалили или ты ошибся и ввел неправильный адрес. Иногда так бывает.</p>
+
+            <p>То, что тебе может быть интересно:</p>
+            <ul>
+                <li><a href="/">Главная страница</a></li>
+                <li><a href="/form/fitness/">Фитнес</a></li>
+                <li><a href="/sex/">Секс и отношения</a></li>
+                <li><a href="/diet/">Еда</a></li>
+            </ul>
+            <p>Либо воспользуйся поиском в правом верхнем углу сайта.</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

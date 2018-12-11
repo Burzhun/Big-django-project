@@ -1,0 +1,17 @@
+{% load wagtailimages_tags %}
+<div class="event_announce">
+    <div class="subsection_title">
+        <a href="{{ entry.get_parent.get_url }}">
+            События
+        </a>
+    </div>
+    <a href="{{ entry.get_url }}" class="img">
+        {% image entry.preview_picture fill-270x200 width=270 height=200 %}
+    </a>
+    <div class="date">{{ entry.published_at|date:"d E Y" }}</div>
+    <div class="title">
+        <a href="{{ entry.get_url }}">
+            {{ entry.title }}
+        </a>
+    </div>
+</div>

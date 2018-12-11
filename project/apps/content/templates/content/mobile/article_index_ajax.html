@@ -1,0 +1,25 @@
+{% load banner_tags %}
+<ul class="announce_thumbs">
+    {% if page_obj.number > 1 %}
+        <li>{% load_banner banner_id='mobile_top' %}</li>
+    {% endif %}
+    {% include 'content/blocks/mobile_block.html' with content=articles parent_page=page.get_parent rubric_page=1 %}
+</ul>
+{% if page_obj.has_next %}
+    <div class="show_more">
+        <a href="" id="show_more_btn"
+           data-url="{{ page.get_url }}?page={{ page_obj.next_page_number }}"
+           data-page="{{ page_obj.number }}"
+           class="btn ui-link">Показать еще</a>
+    </div>
+{% endif %}
+{% if page_obj.number > 1 %}
+    <script>
+        googletag.cmd.push(function () {
+            globalGptAdSlots;
+            index = gptadslots.length;
+            googletag.pubads().refresh(gptadslots.slice(globalGptAdSlots, index));
+            globalGptAdSlots = gptadslots.length;
+        });
+    </script>
+{% endif %}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"  xmlns:anews="http://www.anews.com">
+{% load wagtailimages_tags content_widgets %}
+	<channel>
+
+		<title>{{ title }}</title>
+		<link>{{ host }}</link>
+		<description>{{ description }}</description>
+		<language>ru</language>
+		<lastBuildDate></lastBuildDate>
+		<ttl>0</ttl>
+		{% for page in articles %}
+		    <item>
+		    	{% image page.preview_picture width-400 as tmp_photo %}
+		        <title><![CDATA[{{ page.title|safe }} ]]></title>
+		        <link>{{ host }}{{ page.get_url }}</link>
+		        <description><![CDATA[ <img height="{{ tmp_photo.height }}" src="{{ host }}{{ tmp_photo.url }}" width="{{ tmp_photo.width }}"> {{ page.full_lead|striptags|safe }}]]></description>
+		        <guid>{{ host }}{{ page.get_url }}</guid>
+		        <anews:full-text><![CDATA[
+		            {% for block in page.body %}
+		                {% if block.block_type == "paragraph" %}
+		                    {{ block.value|striptags|safe_text|safe }}
+		                {% endif %}
+		            {% endfor %}
+		        ]]></anews:full-text>
+		        <pubDate>{{ page.published_at|date:"D, d M Y H:i:s O" }}</pubDate>
+		        <enclosure url="{{host}}{{ tmp_photo.url }}" type="image/jpeg"/>
+		    </item>
+		{% endfor %}
+	</channel>
+</rss>

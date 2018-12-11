@@ -1,0 +1,13 @@
+<div class="headlines">
+    <div class="subsection_title">Главное</div>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <div class="title">
+                    <a href="{{ entry.get_url }}">{{ entry.title }}</a>
+                </div>
+
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+
+{% block seo %}
+    {% if not request.is_preview %}
+
+
+        <meta name="title" content="{{ page.get_seo_title }}">
+        <meta name="description" content="{{ page.get_search_description }}"/>
+
+        <meta property="og:title" content="{{ page.title }}">
+        <meta property="og:description" content="{{ page.short_lead }}">
+        {% if page.generate_og_preview_picture and page.generated_og_preview_picture %}
+            <meta property="og:image" content="https://{{ request.get_host }}{{ page.generated_og_preview_picture.url }}">
+        {% else %}
+            {% image page.preview_picture width-1200 as preview_picture %}
+            <meta property="og:image" content="https://{{ request.get_host }}{{ preview_picture.url }}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper clearfix">
+        <article class="container">
+            {% if page.rubric.title == 'Promotion' or page.rubric_title_as_promo or page.show_in_promo %}
+                <div class="promotion">
+                    promotion
+                </div>
+            {% endif %}
+            <div class="lead">
+                {% block entry_title %}
+                    <header>
+                        <h1>
+                            {% if page.full_title %}
+                                {{ page.full_title }}
+                            {% else %}
+                                {{ page.title }}
+                            {% endif %}
+                        </h1>
+                        <div class="text-lead">
+                            {% if page.full_lead %}
+                                {{ page.full_lead }}
+                            {% else %}
+                                {{ page.short_lead }}
+                            {% endif %}
+                        </div>
+                    </header>
+                {% endblock %}
+            </div>
+            <div class="slidesection">
+                {% if page.rubric.special_tag_filter and special_tag_groups %}
+                    <div class="fixed-block">
+                        <div class="search-select">
+                            <div class="search-select__title">{{ page.rubric.special_tag_filter.title }}</div>
+                            <div class="search-select__notice">
+                                {{ page.rubric.special_tag_filter.description|default:'' }}
+                            </div>
+                            <div class="custom-select-wrapper group">
+                                <div class="custom-select search-select__select">
+                                    <span class="custom-select-trigger">
+                                        {% if special_tag %}
+                                            {{ special_tag.group.name }}
+                                        {% else %}
+                                            {{ page.rubric.special_tag_filter.group_default_title }}
+                                        {% endif %}
+                                    </span>
+                                    <div class="custom-options">
+                                        {% for group in special_tag_groups %}
+                                            {% if special_tag_group and group == special_tag_group %}
+                                                <span class="custom-option selection"
+                                                      data-value="{{ group.id }}"
+                                                      data-href="{{ page.rubric.url }}?search_group={{ group.id }}">{{ group.name }}</span>
+                                            {% else %}
+                                                <span class="custom-option" data-value="{{ group.id }}"
+                                                      data-href="{{ page.rubric.url }}?search_group={{ group.id }}">{{ group.name }}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% for group in special_tag_groups %}
+                                <div class="custom-select-wrapper tag" data-value="{{ group.id }}"
+                                        {% if not special_tag or not special_tag.group == group %}
+                                     style="display: none;"
+                                        {% endif %}>
+                                    <div class="custom-select search-select__select">
+                                        <span class="custom-select-trigger">
+                                            {% if special_tag and special_tag.group == group %}
+                                                {{ special_tag.title }}
+                                            {% else %}
+                                                {{ page.rubric.special_tag_filter.tag_default_title }}
+                                            {% endif %}
+                                        </span>
+                                        <div class="custom-options">
+                                            {% for tag in group.tags.related_tags %}
+                                                {% if special_tag and special_tag == tag %}
+                                                    <span class="custom-option selection"
+                                                          data-href="{{ page.rubric.url }}?search_tag={{ tag.id }}">{{ tag.title }}</span>
+                                                {% else %}
+                                                    <span class="custom-option"
+                                                          data-href="{{ page.rubric.url }}?search_tag={{ tag.id }}">{{ tag.title }}</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="search-select__button-wrapper">
+                                <button class="search-select__button disabled">Показать</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="float-block">
+                    {% load_banner banner_id='300x600' %}
+                    <div style="margin-top: 30px; margin-bottom: 30px;">
+                        {% load_banner banner_id='240x150_1' %}
+                    </div>
+                    {% load_banner banner_id='240x150_2' %}
+                </div>
+            </div>
+
+
+            <div class="mainsection">
+                <div class="text clearfix">
+                    {% article_before_content_scripts page=page %}
+                    <a href="" class="slide-anchor"></a>
+                    {#                    {% if page.old_id and not page.has_lead_image_in_paragraph %}#}
+                    {#                        {% image page.preview_picture fill-600x630 style="height: auto;" width="600" %}#}
+                    {#                    {% endif %}#}
+                    {% for block in page.body %}
+                        {% if block.block_type != 'notes' %}
+                            <section class="block-{{ block.block_type }}">
+                                {% include_block block %}
+                            </section>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="advmarg">{% load_banner banner_id='inread_content' %}</div>
+                    {% article_after_content_scripts page=page %}
+
+                </div>
+            </div>
+            <footer class="clearfix">
+                <section>
+                    <ul class="article_info">
+                        {% if page.tags.exists %}
+                            <li>
+                                <div class="info_label">Теги</div>
+                                <div class="info_description">
+                                    <ul class="tags">
+                                        {% for tag in page.tags.all %}
+                                            <li>
+                                                <a href="/tag/{{ tag.slug }}/">{{ tag.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <div class="info_label">Дата</div>
+                            <div class="info_description">{{ page.published_at|date:"j E Y" }}</div>
+                        </li>
+                        {% with page.authors.all as authors %}
+                            {% if authors %}
+                                <li>
+                                    <div class="info_label">Автор</div>
+                                    <div class="info_description">
+                                        {% for author in authors %}{% if forloop.counter0 > 0 %},{% endif %}
+                                            {{ author.first_name }} {{ author.last_name }}{% endfor %}</div>
+                                </li>
+                            {% endif %}
+                        {% endwith %}
+                        {% for block in page.body %}
+                            {% if block.block_type == 'notes' %}
+                                {% include_block block %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </section>
+                <aside>
+                    <div class="social">
+                        <div>
+                            <noindex>
+                                <ul class="social-likes">
+                                    <li>
+                                        <a rel="nofollow" class="social_share fb-share" data-type="fb">
+                                            <i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a rel="nofollow" class="social_share vk-share" data-type="vk">
+                                            <i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a rel="nofollow" class="social_share tw-share" data-type="tw">
+                                            <i class="l-ico">TW:</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </noindex>
+                        </div>
+                    </div>
+                </aside>
+            </footer>
+        </article>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

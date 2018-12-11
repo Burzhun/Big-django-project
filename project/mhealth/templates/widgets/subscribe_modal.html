@@ -1,0 +1,34 @@
+{% load static %}
+<div class="popupnewsletter" style="display: none;">
+	<div id="widget-collection-overlay" class="widget-collection-overlay"></div>
+	<div id="widget-collection-popup" class="widget-collection-popup">
+		<div class="widget-collection-content">
+			<div class="widget-collection-content-title">
+				Подпишись на рассылку
+			</div>
+			<div class="widget-collection-content-subtitle">
+			</div>
+		</div>
+		<div class="widget-collection-control">
+			<div class="widget-collection-form">
+				<form id="popupnewsletter" >
+					<input type="hidden" name="project_id" value="1">
+					<input type="hidden" name="block_id" value="21">
+					<div class="widget-collection-form__input">
+						<input type="email" name="email" class="widget-collection-input-email" placeholder="ваш email">
+					</div>
+					<div class="widget-collection-form__submit">
+						<button class="widget-collection-submit" id="widget-collection-submit">ПОДПИСАТЬСЯ</button>
+					</div>
+					<p>
+						Нажимая кнопку «Подписаться», вы подтверждаете, что принимаете условия <a href="{% static 'docs/moscowtimes_rules.docx' %}">политики ООО «Москоутаймс»</a> в отношении обработки персональных данных.
+					</p>
+				</form>
+				<span id="widget-collection-close-temporary" class="widget-collection-close-temporary" style="cursor: pointer;">закрыть</span></div>
+			<p class="text-danger">E-mail введен неверно!</p>
+			<p class="text-success">Спасибо! Ваша подписка оформлена.</p>
+		</div>
+
+		<div class="widget-collection-success" style="display: none;"> email <br> <a href="#" id="widget-collection-close-permanent" class="widget-collection-close-permanent">закрыть</a></div>
+	</div>
+</div>

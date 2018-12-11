@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+
+{% block title %}Смена пароля{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Регистрация</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper form clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <h1>Регистрация</h1>
+            <aside id="inc_block_right" class="slidesection">
+                <div class="advertise fixed">
+                    <div></div>
+                </div>
+            </aside>
+            <div id="inc_block_main" class="form_page clearfix">
+                <div class="form_feedback correct">
+                    <span class="title">Почти закончили 🔥</span>
+                    <br>
+                    На вашу электронную почту выслано письмо для подтверждения регистрации. Пожалуйста, пройдите по
+                    ссылке, указанной в письме, для завершения регистрации<br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

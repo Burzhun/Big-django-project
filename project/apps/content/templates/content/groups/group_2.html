@@ -1,0 +1,9 @@
+{% if request.user_agent.is_mobile or is_mobile %}
+	{% include "content/blocks/mobile_block.html" %}
+{% else %}
+    {% for entry in content %}
+        <li {% if entry.has_video %}class="video"{% endif %}>
+            {% include "content/blocks/standart.html" %}
+        </li>
+    {% endfor %}
+{% endif %}

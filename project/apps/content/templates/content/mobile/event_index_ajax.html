@@ -1,0 +1,29 @@
+{% load banner_tags wagtailimages_tags %}
+<ul data-role="listview" data-inset="true" data-icon="false"
+    class="events_list  ui-listview ui-listview-inset ui-corner-all ui-shadow">
+    {% for event in events %}
+        <li>
+            <a href="{{ event.get_url }}"
+               class="ui-btn">
+                {% if forloop.counter0 == 0 and page_obj.number == 1%}
+                    {% image event.preview_picture fill-450x300 width='100%' height='' %}
+                {% endif %}
+                <div class="date">
+                    {{ event.active_from|date:"j E" }} {% if event.active_to %}–
+                    {{ event.active_to|date:"j E Y" }}{% endif %}
+                </div>
+                <div class="title">{{ event.title }}</div>
+                <div class="description"></div>
+                <div class="place">{{ event.place }}</div>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% if page_obj.has_next %}
+    <div class="show_more">
+        <a href="" id="show_more_btn"
+           data-url="{{ page.get_url }}?page={{ page_obj.next_page_number }}"
+           data-page="{{ page_obj.number }}"
+           class="btn ui-link">Показать еще</a>
+    </div>
+{% endif %}

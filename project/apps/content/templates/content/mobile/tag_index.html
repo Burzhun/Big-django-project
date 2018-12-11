@@ -1,0 +1,24 @@
+{% extends "mobile/base.html" %}
+{% load content_widgets %}
+{% load banner_tags %}
+
+{% block content %}
+    <div role="main" class="ui-content">
+        <div class="wrapper breadcrumbs clearfix">
+            <div class="container clearfix">
+                <ol>
+                    <li><a href="/">Главная</a></li>
+                    <li>Теги</li>
+                    <li>{{ tag.name }}</li>
+                </ol>
+            </div>
+        </div>
+        <div class="fullwidth">
+            <h1>{{ page.title }}</h1>
+        </div>
+        <div class="wrapper">
+            {% include 'content/mobile/tag_index_ajax.html' %}
+        </div>
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}

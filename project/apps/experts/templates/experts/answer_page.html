@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper expert_detail clearfix">
+        <article id="block_ws_adv" class="container clearfix">
+            <header>
+                <h1>{{ page.title }}</h1>
+                <div class="header-info">
+                    <span class="header-info-item">{{ page.published_at }}</span>
+                    {% if page.author %}
+                    <span class="header-info-item">{{ page.author.full_name }} спрашивает:</span>
+                    {% endif %}
+                </div>
+            </header>
+            <div id="inc_block_main" class="mainsection">
+                <div class="similar">
+                    <div class="title">Другие эксперты</div>
+                    <div class="list">
+                        {% for expert in experts %}
+                            <dl>
+                                <dd>{{ expert.short_description|safe }}</dd>
+                                <dt><a href="{{ expert.get_url }}">{{ expert.title }}</a></dt>
+                            </dl>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="text">
+                    <p>{{ page.question|safe }}</p>
+                    <div class="expert_info clearfix">
+                        <div class="img">
+                            {% image expert.image fill-100x83 width=100 height=83 %}
+                        </div>
+                        <div class="blogger">
+                            <div class="type">Отвечает:</div>
+                            <div class="name"><a href="{{ expert.get_url }}">{{ expert.title }}</a></div>
+                            {% if expert.short_descrption %}
+                                <div class="type">{{ expert.short_description|safe }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p>{{ page.answer|safe }}</p>
+                </div>
+            </div>
+            <aside>
+                <div class="advertise">
+                    <div>{% load_banner banner_id='300x600' %}</div>
+                </div>
+            </aside>
+            <footer>
+                <div class="social">
+                    <div>
+                        <noindex>
+                            <ul class="social-likes">
+                                <li>
+                                    <a rel="nofollow" class="social_share fb-share" data-type="fb">
+                                        <i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" class="social_share vk-share" data-type="vk">
+                                        <i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" class="social_share tw-share" data-type="tw">
+                                        <i class="l-ico">TW:</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </noindex>
+                    </div>
+                </div>
+                <dl class="ask_box">
+                    <dt><a href="{{ expert.get_url }}#form" class="btn">Задать вопрос</a></dt>
+                    <dd>Уточняющие вопросы по теме задавай в комментариях. Ответы на другие вопросы ищи на
+                        <a href="{{ expert.get_url }}">странице эксперта</a>.
+                    </dd>
+                </dl>
+                <div class="expert_question_search">
+                    <form action="{{ expert.get_url }}" method="get" enctype="multipart/form-data" name="search">
+                        <input type="text" name="q" value="" placeholder="Поиск по вопросам" class="input_text">
+                        <button type="submit" class="btn submit">Найти</button>
+                    </form>
+                </div>
+
+            </footer>
+        </article>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

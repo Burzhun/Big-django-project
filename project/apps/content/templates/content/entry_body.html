@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+{% for block in page.body %}
+    {% if block.block_type != 'notes' %}
+        <section class="block-{{ block.block_type }}">
+            {% include_block block %}
+        </section>
+    {% endif %}
+{% endfor %}

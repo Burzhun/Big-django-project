@@ -1,0 +1,14 @@
+{% load wagtailimages_tags %}
+<div class="expert_announce">
+    <div class="subsection_title">Совет эксперта</div>
+        <div class="expert_card">
+            <a href="{{ data.expert.get_url }}" >
+                {% image data.expert.image fill-100x100 width=100 height=100 %}
+            </a>
+            <div class="name"><a href="{{ data.expert.get_url }}" >{{ data.expert.title }}</a></div>
+            <div class="type">{{ data.expert.short_description }}</div>
+        </div>
+        <div class="subtitle">Вопрос</div>
+        <div class="title"><a href="{{ data.question.get_url }}">{{ data.question.title }}</a></div>
+        <a href="{{ data.question.get_url }}" class="btn">Задать вопрос</a>
+</div>

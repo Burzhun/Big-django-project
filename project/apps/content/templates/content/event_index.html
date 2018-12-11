@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper clearfix">
+        <div class="container clearfix events_page">
+            <div class="mainsection" id="inc_block_main">
+                <h1>{{ page.title }}</h1>
+                <ul class="events_list">
+                    {% for event in events %}
+                        <li>
+                            <div class="preview">
+                                {% image event.preview_picture fill-145x105 width=145 height=105 %}
+                            </div>
+                            <div class="info">
+                                <div class="date">
+                                    {{ event.active_from|date:"j E" }} {% if event.active_to %}–
+                                    {{ event.active_to|date:"j E Y" }}{% endif %}
+                                </div>
+                                <div class="title">
+                                    <a href="{{ event.get_url }}">{{ event.title }}</a>
+                                </div>
+                                <div class="description"></div>
+                                <div class="place">{{ event.place }}</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if page_obj %}
+                    {% paginator paginator_obj=page_obj %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load wagtailimages_tags %}
+{% for entry in content %}
+    {% if entry and entry.title %}
+        <li>
+            <div class="subsection_title">
+                {% if rubric_page and entry.rubric_title_as_promo %}
+                    <a href="" class="ui-link">Promotion</a>
+                {% else %}
+                    {% with entry.get_parent as parent %}
+                        <a href="{{ parent.get_url }}" class="ui-link">{{ parent.title }}</a>
+                    {% endwith %}
+                {% endif %}
+            </div>
+            {% if parent_page %}
+                <div class="announce_thumb_item">
+                    <a href="{{ entry.get_url }}" class="img ui-link">
+                        {% image entry.preview_picture fill-450x300 width="auto" height="auto" %}
+                    </a>
+                    <div class="title">
+                        <a href="{{ entry.get_url }}" class="ui-link">{{ entry.title }}</a>
+                    </div>
+                    <div class="date">{{ entry.published_at|date:"d E Y" }}</div>
+                </div>
+            {% else %}
+                <div class="announce_list_item">
+                    <a href="{{ entry.get_url }}" class="img ui-link">
+                        {% image entry.preview_picture fill-99x66 width="99" height="66" class="pic" %}
+                    </a>
+                    <div class="title">
+                        <a href="{{ entry.get_url }}" class="ui-link">{{ entry.title }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}

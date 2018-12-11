@@ -1,0 +1,174 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Cardio</title>
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="{% static 'embeds/cardio/css/style.css' %}">
+</head>
+
+<body>
+
+	<div class="w__calculator__iframe__wrapp">
+		<div class="w__calculator__iframe__content">
+			<div class="w__calculator__iframe__close">x</div>
+			<div class="w__calculator__iframe__title">
+				Код для вставки на сайт
+			</div>
+			<div class="w__calculator__iframe__code">
+				<textarea id="texx"><iframe src="https://mhealth.ru/embeds/cardio/" width="100%" height="790" frameBorder="0" scrolling="no">Ваш браузер не поддерживает плавающие фреймы!</iframe></textarea>
+			</div>
+			<button id="button1">Скопировать</button>
+		</div>
+	</div>
+	<div class="w__calculator__content">
+		<div class="w__calculator__title-big w__calculator__title-center">
+			Калькулятор расхода энергии при различных видах кардио-нагрузок
+		</div>
+		<div class="w__calculator__description">
+			С помощью данного калькулятора ты можешь вычислить количество израсходованных калорий при различных видах спортивных активностей
+			и кардио-нагрузок. Введи свой вес, далее выбери тип, интенсивность и длительность нагрузок. Ты можешь добавить неограниченное
+			количество видов активности в калькулятор.
+		</div>
+		<form class="w__calculator__form">
+			<div class="block_actives__content">
+				<div class="block__actives">
+					<label class="w__calculator__label-input w__calculator__label w__calculator__label-margin">
+						<span>Вес (кг)</span>
+						<input class="w__input w__input-weight" type="number" required min="10" max="999">
+					</label>
+				</div>
+				<div class=" block__actives_ajax">
+					<div class="activ_block">
+						<label class="w__calculator__label-select w__calculator__label w__calculator__label-margin">
+							<span>Тип активности</span>
+							<select class="w__calculator__select w__calculator__select-mission" required>
+								<option value="">Выбери тип активности</option>
+								<option value="1">бадминтон </option>
+								<option value="2">баскетбол</option>
+								<option value="3">бег 8,5 км/ч </option>
+								<option value="4">бег 10 км/ч </option>
+								<option value="5">бег 15 км/ч </option>
+								<option value="6">бег на лыжах </option>
+								<option value="7">бокс </option>
+								<option value="8">борьба </option>
+								<option value="9">велосипед 20 км/ч </option>
+								<option value="10">велосипед 25 км/ч </option>
+								<option value="11">велосипед 30 км/ч </option>
+								<option value="12">велосипед 35+ км/ч </option>
+								<option value="13">водное поло </option>
+								<option value="14">волейбол </option>
+								<option value="15">восточные единоборства </option>
+								<option value="16">горный велосипед </option>
+								<option value="17">катание на роликах </option>
+								<option value="18">горные лыжи </option>
+								<option value="19">настольный теннис </option>
+								<option value="20">плавание (баттерфляй) </option>
+								<option value="21">плавание (брасс) </option>
+								<option value="22">плавание (кроль) </option>
+								<option value="23">пляжный волейбол </option>
+								<option value="24">прыжки через скакалку </option>
+								<option value="25">спортивная ходьба </option>
+								<option value="26">теннис </option>
+								<option value="27">тренажерный зал </option>
+								<option value="28">тяжелая атлетика </option>
+								<option value="29">футбол </option>
+								<option value="30">ходьба 6 км/ч </option>
+								<option value="31">ходьба 7 км/ч </option>
+								<option value="32">ходьба 8 км/ч </option>
+								<option value="33">хоккей </option>
+							</select>
+						</label>
+						<br>
+						<label class="w__calculator__label-input w__calculator__label  w__calculator__label-margin ">
+							<span>Длительность (мин)</span>
+							<input class="w__input w__input_time" type="number" required min="0" max="999">
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="add_actives">
+				<i class="fas fa-plus-circle"></i> Добавить</div>
+
+			<div class="w__calculator__button__wrapp">
+				<input type="submit" class="w__calculator__button" value="Рассчитать">
+				<div class="w__calculator__error">
+
+				</div>
+			</div>
+
+		</form>
+		<div class="w__calculator__result__wrapper hidden">
+			<div class="w__calculator__title-mini">
+				Результаты
+			</div>
+			<div class="w__calculator__calories_content">
+			</div>
+			<div class="w__calculator__calories__rezultAll">
+				<div class="w__calculator__title-mini">
+					Итого
+				</div>
+				<div class="w__calculator__result__count">
+					<span>0</span> ккал
+				</div>
+			</div>
+		</div>
+
+		<div class="w__calculator__abstract hidden">
+				Калькулятор предназначен для приблизительной оценки энергозатрат. Формула, использованная в расчетах, является результатом обработки статистических данных, где значения усреднены, поэтому возможны индивидуальные отклонения.
+		</div>
+
+		<div class="w__calculator__restart  hidden">
+			Еще раз
+		</div>
+
+		<div class="w__calculator__footer">
+			<div class="mobile share_mobile">
+				<img src="{% static 'embeds/cardio/img/icon_share@2x.png' %}" alt="" style="height: 30px;">
+			</div>
+			<div class="w__calculator__socials desktop">
+				<a href="http://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=Калькулятор&p%5Bsummary%5D=Узнай свой рацион&p%5Burl%5D=http://anndo.ru/&p%5Bimages%5D%5B0%5D=http://anndo.ru/img/share.jpg"
+				  target="_blank" onclick="return Share.me(this);" class="w__calculator__social">
+					<i class="fab fa-facebook-f"></i>
+				</a>
+				<a href="http://vk.com/share.php?url=http://anndo.ru/&title=Калькулятор&description=Узнай свой рацион&image=http://anndo.ru/img/share.jpg&noparse=true"
+				  target="_blank" onclick="return Share.me(this);" class="w__calculator__social">
+					<i class="fab fa-vk"></i>
+				</a>
+				<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments=Узнай свой рацион&st._surl=http://anndo.ru/" target="_blank"
+				  onclick="return Share.me(this);" class="w__calculator__social">
+					<i class="fab fa-odnoklassniki"></i>
+				</a>
+				<a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Ffiddle.jshell.net%2F_display%2F&text=Калькулятор&url=http://anndo.ru/"
+				  target="_blank" onclick="return Share.me(this)" class="w__calculator__social">
+					<i class="fab fa-twitter"></i>
+				</a>
+				<a href="https://t.me/share/url?url=http://anndo.ru/&amp;text=Калькулятор" target="_blank" onclick="return Share.me(this);"
+				  class="w__calculator__social">
+					<i class="fab fa-telegram-plane"></i>
+				</a>
+			</div>
+			<div class="w__calculator__logo">
+				<img src="{% static 'embeds/cardio/img/logo_mh@2x.png' %}" alt="">
+			</div>
+			<div class="w__calculator__iframe desktop">
+				Забрать на свой сайт
+			</div>
+
+			<div class="mobile w__calculator__iframe">
+				<img src="{% static 'embeds/cardio/img/icon_embed@2x.png' %}" alt="" style="height: 30px;">
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script src="{% static 'embeds/cardio/libs/jquery.min.js' %}"></script>
+<script src="{% static 'embeds/cardio/libs/fontawesome-all.min.js' %}"></script>
+<script src="{% static 'embeds/cardio/js/common.js' %}"></script>
+
+</html>

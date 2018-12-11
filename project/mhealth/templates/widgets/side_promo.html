@@ -1,0 +1,24 @@
+{% if entries %}
+    {% load wagtailimages_tags %}
+    {% load banner_tags %}
+    <div class="headlines">
+        <div class="subsection_title">Promotion</div>
+        <ul>
+            {% for item in widget_entries %}
+                <li>
+                    <div class="title">
+                        <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+                    </div>
+
+                </li>
+            {% endfor %}
+            {% for entry in entries %}
+                <li>
+                    <div class="title">
+                        <a href="{{ entry.get_url }}">{{ entry.title }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

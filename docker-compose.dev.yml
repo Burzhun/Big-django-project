@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: ./django_dev/Dockerfile
+    restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
+      - "8888:8888"
+      - "80:80"
+    volumes:
+      - ./project:/app
+
+    depends_on:
+      - postgres
+      - redis
+#      - celery
+
+    links:
+      - postgres
+      - redis
+    entrypoint:
+      - /entrypoint.sh
+    environment:
+      RECAPTCHA_DISABLE: 1
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
+
+  redis:
+    image: 'redis:4'
+    ports:
+      - '6379:6379'
+    volumes:
+      - './data/redis:/data'
+
+#  celery:
+#    build:
+#      context: .
+#      dockerfile: ./django_dev/Dockerfile
+#    restart: always
+#    env_file: .env
+#    volumes:
+#      - ./project:/app
+#      - ./django_dev/celery/entrypoint.sh:/entrypoint.sh
+#
+#    links:
+#      - postgres
+#      - redis
+#
+#    entrypoint:
+#      - /entrypoint.sh
+

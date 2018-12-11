@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper sp_kamasutra clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <div class="lead">
+                <h1>{{ page.title }}</h1>
+
+                <div class="text-lead">
+                    {{ page.short_lead }}
+                </div>
+            </div>
+
+            <div id="inc_block_main" class="mainsection">
+                <div class="contest clearfix">
+                    <div class="quiz">
+                        <div class="voting-form-box">
+                            <div class="question">Выбери, чем вы займетесь сегодня</div>
+                            <form action="{{ page.get_url }}" method="get">
+                                <fieldset>
+                                    {% for position in positions %}
+                                        <div class="custom-checkbox">
+                                            <input type="checkbox" name="position[]" value="{{ position.id }}"
+                                                   id="vote_radio_{{ position.id }}"
+                                                    {% if position.id in filter_positions %}
+                                                        checked
+                                                    {% endif %}>
+                                            <label for="vote_radio_{{ position.id }}">{{ position.title }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </fieldset>
+                                <button class="btn" type="submit">Подобрать позу</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <ul class="items_list">
+
+                        {% for entry in entries %}
+                            <li>
+                                <a href="{{ entry.get_url }}">
+                                    {% image entry.preview_picture fill-298x178 width=298 height=178 %}
+                                </a>
+                                <div class="overview">
+                                    <div class="title"><a href="{{ entry.get_url }}">{{ entry.title }}</a></div>
+                                </div>
+                                {#                                <div class="s-rate-view">#}
+                                {#                                    <div class="rate" style="width: 98%"></div>#}
+                                {#                                </div>#}
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                    {% if page_obj %}
+                        {% paginator paginator_obj=page_obj %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <aside id="inc_block_right" class="slidesection">
+                <div class="advertise">
+                    <div>{% load_banner banner_id='300x600' %}</div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

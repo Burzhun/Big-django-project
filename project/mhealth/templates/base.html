@@ -1,0 +1,285 @@
+{% load static %}
+{% load menu_tags %}
+{% load content_widgets %}
+{% load banner_tags %}
+{% load pipeline %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>
+        {% block title %}
+            {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% with self.get_site.site_name as site_name %}
+                {% if site_name %}- {{ site_name }}{% endif %}
+            {% endwith %}
+        {% endblock %}
+    </title>
+
+    {% block seo %}
+        <meta name="title" content="{{ page.seo_title }}">
+        <meta name="description" content="{{ page.search_description }}"/>
+    {% endblock %}
+
+    <meta name="yandex-verification" content="470cf10ccb697568"/>
+    <meta name="apple-itunes-app" content="app-id=924386440, affiliate-data=, app-argument="/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+
+    {% stylesheet 'vendor' %}
+    {% stylesheet 'main' %}
+
+    {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+
+    {% head_desktop_scripts page=page %}
+</head>
+
+<body class="{% block body_class %}wallpaper{% endblock %}">
+{% if not request.is_preview %}
+    <div id='user_bar' data-page="{{ page.id }}" data-revision="{{ request.revision_id }}">
+    </div>
+{% endif %}
+
+{% block top_banner %}
+    <div class="fullwidth_banner top_banner adv">
+        {% load_banner banner_id='TOP970' %}
+    </div>
+{% endblock %}
+
+{% block header %}
+    <div class="fullnav clearfix">
+        <header class="main clearfix">
+            <a href="/">
+                <h1>Men's Health. Журнал</h1>
+            </a>
+            <a target="_blank" href="https://20-20.mhealth.ru??utm_source=mhealth&utm_medium=BookmarkButton&utm_campaign=20-20">
+				<img src="/media/images/2018/12/5/7cbd4eede6894a7090eb4abdda0545c9.original.jpg" style="width: 320px;position: absolute;top: 3px;right: 0;">
+			</a>
+        </header>
+        <div class="subnav clearfix">
+            <nav class="main_menu">
+                <a href="#" class="main_menu_btn" id="left_menu_btn" data-toggle="dropdown"
+                   data-target="#drop_menu"></a>
+                <a href="#" class="main_menu_btn" id="search_btn" title="Поиск по сайту"></a>
+                <a href="#login_box" class="main_menu_btn login_btn_open_popup" id="login_btn"></a>
+                <span class="main_menu_btn textPopupnewsletterr" id="textPopupnewsletter"></span>
+                {% main_menu template="menus/custom_main_menu.html" %}
+                {% other_menu menu_name="side_menu" template_name="menus/side_menu.html" %}
+            </nav>
+            <div id="search_pane">
+                <form name="search" method="GET" action="/search/">
+                    <input type="text" name="q" value="" id="head-search-suggest-target" placeholder="Поиск ..."
+                           class="inp">
+                    <a id="search_close" href="#">×</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block fullscreen_banner %}
+    {% load_banner banner_id='fullscreen' %}
+{% endblock %}
+
+{% block layout %}
+    <div class="{% block layout_class %}layout{% endblock %}">
+        {% block rubric_block %}
+            {% other_menu menu_name="top_news" template_name="menus/top_news.html" %}
+        {% endblock %}
+        {% block container_wrapper %}
+            <div class="wrapper clearfix">
+                <div class="container clearfix" >
+                    {% block container %}
+
+                    {% endblock %}
+
+                    {% block side %}
+                        <div class="rightsection">
+                            <div class="advertise">
+                                <div>
+                                    {% load_banner banner_id='300x600' %}
+                                </div>
+                                {% last_issue %}
+                                {% promo_side_widget %}
+                            </div>
+                            <div>
+                                {% load_banner banner_id='240x150_1' %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block extra_content %}
+        {% endblock %}
+
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    <footer id="bottom_footer" class="active">
+
+        <div class="wrapper" style="display: block;">
+            <div class="container clearfix">
+
+                <div class="promo">
+                    <a href=""><img src="{% static 'img/logo_mh_bottom@2x.png' %}" alt="" id="logo_mh_bottom"></a>
+                    <br>
+                    <strong>MEN’S HEALTH</strong> – главный мужской журнал во всем мире. Ежедневно обновляющиеся
+                    рубрики и статьи, советы экспертов и блоги,
+                    конкурсы и подарки. Основные темы: мужское здоровье и физическая форма; тренировки,
+                    упражнения и энциклопедия фитнеса; секс и психология
+                    отношений; правильное питание и профилактика заболеваний; еда и рецепты; куда поехать, где
+                    отдохнуть; мужская мода, одежда и стиль для мужчин:
+                    костюмы, галстуки, сумки, часы и другие аксессуары; груминг - уход за лицом и телом для
+                    мужчин; развлекательные и познавательные тесты на
+                    самые различные темы; обучающие видео и онлайн-уроки от профессионалов; самые красивые
+                    девушки в одежде и без; легендарные спортсмены, актеры,
+                    музыканты и другие знаменитости; обзоры информационных технологий и достижений науки; лучшие
+                    автомобили и иные средства передвижения, тесты и
+                    видеообзоры; новейшие гаджеты и другие символы прогресса; мужской форум и Аукцион призов.
+                    Вся жизнь современного мужчины на территории сайта
+                    журнала Men’s Health.
+                </div>
+
+                <div class="bottom_block social clearfix">
+                    <div class="title">MH в социальных сетях</div>
+                    <a href="http://www.facebook.com/MensHealthRussia" target="_blank" class="icon"
+                       id="icon_fb"></a>
+                    <a href="http://twitter.com/#!/menshealthrus" target="_blank" class="icon"
+                       id="icon_twitter"></a>
+                    <a href="http://vk.com/mh" target="_blank" class="icon" id="icon_vk"></a>
+                    <a href="http://my.mail.ru/community/mens_health_rus/" target="_blank" class="icon"
+                       id="icon_mail"></a>
+                    <a href="https://www.youtube.com/MensHealthRussia" target="_blank" class="icon"
+                       id="icon_youtube"></a>
+                    <a href="http://www.odnoklassniki.ru/mhealth" target="_blank" class="icon" id="icon_ok"></a>
+                    <a href="https://www.instagram.com/menshealth.ru/" target="_blank" class="icon"
+                       id="icon_in"></a>
+                </div>
+
+                <div class="bottom_block menu_list">
+                    <div class="title">Журнал</div>
+                    <ul>
+                        <li><a href="/~www-mh-ipad">iPad/iPhone-версия</a></li>
+                        <li><a href="/~C6x" target="_blank">Android версия</a></li>
+                        <li><a href="/subscription/">Подписка</a></li>
+                        <li><a href="/magazine/">Архив номеров</a></li>
+                    </ul>
+                </div>
+
+                <div class="bottom_block menu_list">
+                    <div class="title">О нас</div>
+                    <ul>
+                        <li><a href="/about/contacts">Редакция</a></li>
+                        <li><a href="/about/reklama-na-saite">Реклама на сайте</a></li>
+                        <li><a href="/about/reklama-v-jurnale">Реклама в журнале</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container bottom">
+
+                <div class="copyright">
+                    © 2015–2018 ООО «Москоутаймс». Все права защищены. Любое воспроизведение материалов или фрагментов из них на любом языке возможно только с письменного разрешения ООО «Москоутаймс». Дизайн - студия
+                        Charmer
+                    </noindex>
+                </div>
+
+                <div class="visuallyhidden">
+                    <noindex>
+                        <!--LiveInternet counter-->
+                        <script>document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t17.6;r" + escape(document.referrer) + ((typeof(screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";i" + escape("Жж" + document.title.substring(0, 80)) + ";" + Math.random() + "' border=0 width=88 height=31 alt='' title='LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня'><\/a>")</script>
+                        <!--/LiveInternet-->
+
+                        <!--begin of Rambler's Top100 code -->
+                        <script type="text/javascript">
+                            var _top100q = _top100q || [];
+
+                            _top100q.push(["setAccount", "1223258"]);
+                            _top100q.push(["trackPageview"]);
+
+
+                            (function () {
+                                var top100 = document.createElement("script");
+                                top100.type = "text/javascript";
+
+                                top100.async = true;
+                                top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/pack/pack.min.js";
+                                var s = document.getElementsByTagName("script")[0];
+                                s.parentNode.insertBefore(top100, s);
+                            })();
+                        </script>
+                        <div id="top100">
+                            <a href="https://www.rambler.ru/">Партнер "Рамблера"</a>
+                        </div>
+                        <!--end of Top100 logo -->
+
+                        <!-- Yandex.Metrika counter -->
+                        <script type="text/javascript">(function (d, w, c) {
+                            (w[c] = w[c] || []).push(function () {
+                                try {
+                                    w.yaCounter24207301 = new Ya.Metrika({
+                                        id: 24207301,
+                                        webvisor: true,
+                                        clickmap: true,
+                                        trackLinks: true,
+                                        accurateTrackBounce: true,
+                                        ut: "noindex"
+                                    });
+                                } catch (e) {
+                                }
+                            });
+                            var n = d.getElementsByTagName("script")[0], s = d.createElement("script"),
+                                f = function () {
+                                    n.parentNode.insertBefore(s, n);
+                                };
+                            s.type = "text/javascript";
+                            s.async = true;
+                            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                            if (w.opera == "[object Opera]") {
+                                d.addEventListener("DOMContentLoaded", f, false);
+                            } else {
+                                f();
+                            }
+                        })(document, window, "yandex_metrika_callbacks");</script>
+                        <noscript>
+                            <div><img src="//mc.yandex.ru/watch/24207301?ut=noindex"
+                                      style="position:absolute; left:-9999px;" alt=""/></div>
+                        </noscript><!-- /Yandex.Metrika counter -->
+
+                    </noindex>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block auth_modal %}
+    {% include 'community/auth_modal.html' %}
+{% endblock %}
+{% subscribe_modal %}
+{% load_banner banner_id='floor_ad' %}
+{# Global javascript #}
+
+{% javascript 'vendor' %}
+{% javascript 'main' %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {# Override this in templates to add extra javascript #}
+{% endblock %}
+{% footer_desktop_scripts page=page %}
+</body>
+</html>

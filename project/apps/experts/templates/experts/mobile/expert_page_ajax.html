@@ -1,0 +1,21 @@
+<ul data-role="listview"
+    data-inset="true"
+    data-icon="false"
+    class="questions_list ui-listview ui-listview-inset ui-corner-all ui-shadow">
+    {% for answer in answers %}
+        <li class="ui-first-child">
+            <a href="{{ answer.get_url }}" class="ui-btn">
+                <div class="title">{{ answer.title }}</div>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% if page_obj.has_next %}
+    <div class="show_more">
+        <a href="" id="show_more_btn"
+           onclick="return showMoreArticle(this);"
+           data-url="{{ page.get_url }}?page={{ page_obj.next_page_number }}&q={% if q %}{{ q }}{% endif %}"
+           data-page="{{ page_obj.number }}"
+           class="btn ui-link">Показать еще</a>
+    </div>
+{% endif %}

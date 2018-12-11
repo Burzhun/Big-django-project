@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>{{ user.full_name }}</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper profile clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+
+            <h1>{{ user.full_name }}</h1>
+            <div class="profile_menu">
+                <div class="profile_box">
+                    <div class="avatar">
+                        {% if not user.avatar %}
+                            <img src="{% static 'img/no_avatar.png' %}" width="180" height="180" alt="">
+                        {% else %}
+                            <img src="{{ user.avatar.url }}">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <aside id="inc_block_right" class="">
+                <div class="advertise" style="">
+                    <div>{% load_banner banner_id='300x600' %}</div>
+                </div>
+            </aside>
+
+
+            <div id="inc_block_main" class="profile_public clearfix">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Имя</td>
+                        <td>{{ user.full_name }}</td>
+                    </tr>
+                    {% if user.notes %}
+                        <tr>
+                            <td>О себе</td>
+                            <td>{{ user.notes }}</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

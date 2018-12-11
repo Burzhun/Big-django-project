@@ -1,0 +1,49 @@
+stages:
+  - deploy
+  - db
+  - stop
+
+variables:
+    REVIEW_HOST: $CI_COMMIT_REF_SLUG-mhealth.review.moscowtimes.org
+
+deploy-review:
+  stage: deploy
+  script:
+    - ./review.sh start
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: https://$CI_COMMIT_REF_SLUG-mhealth.review.moscowtimes.org
+    on_stop: stop-review
+  tags:
+    - review
+  only:
+    - branches
+  except:
+    - release
+
+stop-review:
+  stage: stop
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+  script:
+    - ./review.sh stop
+  when: manual
+  only:
+    - branches
+  except:
+    - release
+  tags:
+    - review
+
+prod-db:
+  stage: db
+  script:
+    - ./review.sh proddb
+  when: manual
+  only:
+    - branches
+  except:
+    - release
+  tags:
+    - review

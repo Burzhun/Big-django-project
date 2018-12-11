@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+<div class="incut">
+    {% image value.image width-300 width='100%' height='' %}
+    {% if value.title %}
+        <div class="title">{{ value.title }}</div>
+    {% endif %}
+    {% for note in value.notes %}
+        <div class="details">
+            <span class="label">{{ note.key }}: </span>
+            {{ note.value }}
+        </div>
+    {% endfor %}
+</div>

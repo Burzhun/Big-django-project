@@ -1,0 +1,14 @@
+{% extends "mobile/base.html" %}
+{% load content_widgets %}
+{% block content %}
+    <div role="main" class="ui-content">
+        <div class="fullwidth">
+            <h1>{{ page.title }}</h1>
+        </div>
+        <div class="wrapper">
+            {% include 'content/mobile/event_index_ajax.html' %}
+        </div>
+
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}

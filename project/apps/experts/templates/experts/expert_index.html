@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection page_experts_list" id="inc_block_main">
+        <h1>{{ page.title }}</h1>
+        {% for expert, answers in models %}
+            <div class="expert_advices clearfix">
+                <div class="subsection_title">{{ expert.get_section_display }}</div>
+                <div class="expert_info">
+                    <div class="img">
+                        {% image expert.image fill-300x250 width=300 height=250 %}
+                    </div>
+                    <div class="blogger">
+                        <div class="name"><a href="{{ expert.get_url }}">{{ expert.title }}</a></div>
+                        <div class="type">{{ expert.short_description|default:''|safe }}</div>
+                    </div>
+                    <a href="{{ expert.get_url }}" class="btn">Задать вопрос</a></div>
+
+                <div class="expert_question_block">
+                    <div class="title">Последние вопросы</div>
+                    <ul>
+                        {% for answer in answers %}
+                        <li>
+                            <a href="{{ answer.get_url }}">{{ answer.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ expert.get_url }}" class="all_link">Все вопросы</a>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="slidesection" id="inc_block_right">
+        <div class="advertise">
+            <div>{% load_banner banner_id='300x600' %}</div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

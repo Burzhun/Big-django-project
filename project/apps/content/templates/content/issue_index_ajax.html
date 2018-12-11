@@ -1,0 +1,24 @@
+{% load wagtailimages_tags  %}
+{% load wagtailroutablepage_tags %}
+<div class="main_announce_list">
+    <div class="subsection_title">
+        <a href="?year={{ year }}">{{ year }}</a>
+    </div>
+    <ul>
+        {% for issue in issues %}
+            <li>
+                <a href="{{ issue.get_url }}">
+                    {% image issue.cover fill-298x388 width=298 height=388 %}
+                </a>
+                <div class="title">
+                    <a href="{{ issue.get_url }}">{{ issue.title }}</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% if not last_year %}
+<div class="show_more">
+    <a href="" id="show_more_issue_btn" class="btn" data-year="{{ year }}" >Показать еще</a>
+</div>
+{% endif %}

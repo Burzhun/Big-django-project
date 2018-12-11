@@ -1,0 +1,11 @@
+{% load wagtailimages_tags %}
+<div class="text-flex">
+    <div class="text-flex__inner-img">
+        <div class="pic">
+            {% image value.image width-630 width="100%" %}
+        </div>
+    </div>
+    <div class="text-flex__inner-text">
+        {{ value.text }}
+    </div>
+</div>

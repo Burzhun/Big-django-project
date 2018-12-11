@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    restart: always
+    env_file: .env
+    volumes:
+      - /work/data/mhealth_${CI_COMMIT_REF_NAME}/media:/app/media
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - postgres
+      - redis
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    networks:
+      - internal
+      - review
+    labels:
+      - traefik.frontend.rule=Host:${REVIEW_HOST}
+      - traefik.docker.network=review
+    environment:
+      PRODUCTION_ENV: 1
+
+  postgres:
+    image: postgres:10.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /work/data/mhealth_${CI_COMMIT_REF_NAME}/postgres/:/var/lib/postgresql/data
+    networks:
+      - internal
+      - review
+    labels:
+      - traefik.enable=false
+    logging: *logging
+
+  redis:
+    image: redis:4.0.9-alpine
+    restart: always
+    volumes:
+      - /work/data/mhealth_${CI_COMMIT_REF_NAME}/redis:/data
+    networks:
+      - internal
+      - review
+    labels:
+      - traefik.enable=false
+
+  redis-cache:
+    image: redis:4.0.9-alpine
+    restart: always
+    volumes:
+      - ./conf/redis/redis_cache.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      - internal
+      - review
+    labels:
+      - traefik.enable=false
+
+networks:
+  internal:
+  review:
+    external:
+      name: review

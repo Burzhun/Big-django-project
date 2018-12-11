@@ -1,0 +1,19 @@
+{% if request.user_agent.is_mobile or is_mobile %}
+	{% include "content/blocks/mobile_block.html" %}
+{% else %}
+    {% with content.0 as entry %}
+        <li {% if entry.has_video %}class="video"{% endif %}>
+            {% include "content/blocks/standart.html" %}
+        </li>
+    {% endwith %}
+    {% with content.1 as entry %}
+         <li {% if entry.has_video %}class="video"{% endif %}>
+            {% include "content/blocks/standart.html" %}
+         </li>
+    {% endwith %}
+    {% with content.2 as entries %}
+        <li>
+            {% include "content/blocks/headlines.html" %}
+        </li>
+    {% endwith %}
+{% endif %}

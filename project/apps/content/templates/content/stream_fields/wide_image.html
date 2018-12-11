@@ -1,0 +1,7 @@
+{% load wagtailimages_tags %}
+<div class="img_detail">
+    {% image value.image width-960 width='100%' height=''%}
+    {% if value.caption %}
+        <span class="sign">{{ value.caption }}</span>
+    {% endif %}
+</div>

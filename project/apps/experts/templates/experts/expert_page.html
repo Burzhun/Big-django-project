@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+{% load wagtailroutablepage_tags %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper page_expert_questions_list clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <h1>{{ page.short_description|default:''|safe }}</h1>
+            <div id="inc_block_main" class="mainsection">
+                <div id="inc_block_right" class="slidesection">
+                    <div class="advertise">
+                        <div>{% load_banner banner_id='300x600' %}</div>
+                    </div>
+                </div>
+
+                <div class="leftsection">
+                    <div class="expert_info">
+                        <div class="img">
+                            {% image page.image fill-300x250 width=300 height=250 %}
+                        </div>
+                        <div class="blogger">
+                            <div class="name">
+                                <a href="{{ page.get_url }}">{{ page.title }}</a></div>
+                            <div class="type">{{ page.description|default:''|safe }}</div>
+                        </div>
+                        <a href="{{ page.get_url }}#form" id="go-ask" class="btn">Задать вопрос</a></div>
+                </div>
+
+                <div class="page-content clearfix">
+                    <div class="intro">
+                        {{ page.intro|default:'' }}
+                    </div>
+                    <div class="expert_question_search">
+                        <form action="{{ page.get_url }}" method="get" enctype="multipart/form-data" name="search">
+                            <input type="text" name="q" value="{{ q|default:'' }}" placeholder="Поиск по вопросам"
+                                   class="input_text">
+                            <button type="submit" class="btn submit">Найти</button>
+                        </form>
+                    </div>
+
+                    <div class="expert_question_block">
+                        <div class="title">Последние вопросы</div>
+                        <ul>
+                            {% for answer in answers %}
+                                <li>
+                                    <a href="{{ answer.get_url }}">{{ answer.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {% if page_obj.has_next %}
+                        <div class="show_more">
+                            <div href="" id="show_more_answer_btn" class="btn" data-page="{{ page_obj.number }}">
+                                Показать еще
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="expert_ask_form">
+            <section class="container">
+                <header class="clearfix">
+                    <h3>Задать вопрос</h3>
+                </header>
+                {% if form_success %}
+                    <div class="form_feedback correct">
+                        <span class="title">Вопрос успешно создан</span>
+                        <br>
+                        Эксперт в ближайшее время ознакомится с ним
+                    </div>
+                {% else %}
+                    <div class="box">
+                        <a id="ask-form" href="#form"></a>
+
+                        <div class="avatar">
+                            <img src="
+
+                                    {% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'img/no_avatar.png' %}{% endif %}"
+                                 width="60"
+                                 height="60" alt="Юнус ">
+                        </div>
+                        <div class="form">
+                            <form action="{% routablepageurl page "add_question" %}" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="field">
+                                    {{ form.title.label_tag }}
+                                    {{ form.title }}
+                                    {{ form.title.errors }}
+                                    <span class="help">{{ form.title.help_text }}</span>
+                                </div>
+                                <div class="field">
+                                    {{ form.question.label_tag }}
+                                    {{ form.question }}
+                                    {{ form.question.errors }}
+                                    <span class="symbol_numb" id="char-counter">1000</span>
+                                </div>
+                                <input type="submit" name="create" class="btn" value="Отправить">
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

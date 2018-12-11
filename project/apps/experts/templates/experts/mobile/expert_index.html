@@ -1,0 +1,45 @@
+{% extends "mobile/base.html" %}
+{% load content_widgets %}
+{% load banner_tags wagtailimages_tags %}
+
+{% block content %}
+    <div role="main" class="ui-content">
+        <div class="fullwidth">
+            <h1>{{ page.title }}</h1>
+        </div>
+        <div class="wrapper">
+            {% for expert, answers in models %}
+                <div class="question_block">
+                    <div class="expert_info">
+                        <div class="img">
+                            {% image expert.image fill-250x250 width='' height='' %}
+                        </div>
+                        <div class="blogger">
+                            <div class="name"><a href="{{ expert.get_url }}">{{ expert.title }}</a></div>
+                            <div class="type">{{ expert.short_description|default:'' }}</div>
+                        </div>
+{#                        <a href="{{ expert.get_url }}" class="btn">Задать вопрос</a>#}
+                    </div>
+                    <div class="title">Последние вопросы</div>
+                    <ul data-role="listview"
+                        data-inset="true"
+                        data-icon="false"
+                        class="questions_list ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                        {% for answer in answers %}
+                            <li class="ui-first-child">
+                                <a href="{{ answer.get_url }}" class="ui-btn">
+                                    <div class="title">{{ answer.title }}</div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="all_section">
+                        <a href="{{ expert.get_url }}">Все вопросы</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}

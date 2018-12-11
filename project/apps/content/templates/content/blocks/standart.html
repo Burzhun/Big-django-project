@@ -1,0 +1,36 @@
+{% if entry.is_event %}
+    {% include "content/blocks/event.html" %}
+{% else %}
+    {% load wagtailimages_tags %}
+    <div class="subsection_title">
+        {% if not rubric_title_as_promo %}
+            <a href="{{ entry.parent_url }}">{{ entry.parent_title }}</a>
+        {% else %}
+            <div>Promotion</div>
+        {% endif %}
+    </div>
+
+    <a href="{{ entry.get_url }}" class="img">
+        {% image entry.preview_picture fill-300x215 width="300" height="215" %}
+    </a>
+
+    <div class="title">
+        <a href="{{ entry.get_url }}">
+            {{ entry.title }}
+        </a>
+    </div>
+    <div class="subtitle">
+        <a href="{{ entry.get_url }}">{{ entry.subtitle|default:"" }}</a>
+    </div>
+    {% if entry.category %}
+        <div class="blogger clearfix">
+            <a href="{{ entry.parent_url }}" class="img">
+                {% image entry.category.preview_picture fill-40x40 width=40 height=40 %}
+            </a>
+            <div class="name"><a href="{{ entry.parent_url }}">{{ entry.category.title }}</a></div>
+            <div class="date">{{ entry.published_at|date:"d E Y" }}</div>
+        </div>
+    {% else %}
+        <div class="date">{{ entry.published_at|date:"d E Y" }}</div>
+    {% endif %}
+{% endif %}

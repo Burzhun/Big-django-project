@@ -1,0 +1,55 @@
+{% if request.user_agent.is_mobile %}
+    {% include 'home/mobile/home_page_ajax.html' %}
+{% else %}
+    {% load banner_tags %}
+    {% load content_widgets %}
+    {% load static %}
+    <script>
+        var ids = {{ ids }};
+    </script>
+    <div class="fullwidth_banner adv" style="margin-top: 40px">
+        {% load_banner banner_id='WIDE_BANNER' %}
+    </div>
+    <div class="wrapper clearfix" style="margin-top: 30px">
+        <div class="container clearfix">
+            <div class="mainsection">
+                <div class="main_announce_list">
+                    <a name="nav_start"></a>
+                    <ul>
+                        {% for entry in entries %}
+                            <li>
+                                {% include 'content/blocks/standart.html' %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="slidesection">
+                <div class="float-block">
+                    {% load_banner banner_id='300x600' %}
+                    <div style="margin-top: 30px">
+                        {% load_banner banner_id='240x150_1' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w__loader">
+        <div class="container">
+            <div class="w__loader__wrapp">
+                <div class="w__btn__loader">
+                    <span>Показать еще</span>
+                    <img src="{% static 'img/w__loader.gif' %}" alt="" class="w__loader__hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        googletag.cmd.push(function () {
+            globalGptAdSlots;
+            index = gptadslots.length;
+            googletag.pubads().refresh(gptadslots.slice(globalGptAdSlots, index));
+            globalGptAdSlots = gptadslots.length;
+        });
+    </script>
+{% endif %}

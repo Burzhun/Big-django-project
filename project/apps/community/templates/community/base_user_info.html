@@ -1,0 +1,8 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+<div class="avatar">
+    <a href="{% url 'profile' id=request.user.id %}">
+        <img src="{% if not request.user.avatar  %}{% static 'img/no_avatar.jpg' %}{% else %}{{ request.user.avatar.url }}{% endif %}" alt="{{ request.user.username}} ">
+    </a>
+</div>
+{% endif %}

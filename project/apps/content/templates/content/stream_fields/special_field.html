@@ -1,0 +1,20 @@
+{% load wagtailimages_tags %}
+<li class="special-project">
+    <div class="special-project__title">Специальные проекты</div>
+    <div class="special-project__items">
+        {% for item in value %}
+            <div class="special-project__item">
+                <div class="special-project__item__img">
+                    <a href="{{ item.link }}" target="_blank">
+                        {% image item.image fill-50x50 %}
+                    </a>
+                </div>
+                <div class="special-project__item__title">
+                    <a href="{{ item.link }}" target="_blank">
+                        {{ item.title }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</li>

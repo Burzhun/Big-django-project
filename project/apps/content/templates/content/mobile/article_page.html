@@ -1,0 +1,150 @@
+{% extends "mobile/base.html" %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load banner_tags %}
+
+{% block seo %}
+    {% if not request.is_preview %}
+        {% image page.preview_picture width-600 as preview_picture %}
+        <meta name="title" content="{{ page.get_seo_title }}">
+        <meta name="description" content="{{ page.get_search_description }}"/>
+
+        <meta property="og:title" content="{{ page.title }}">
+        <meta property="og:description" content="{{ page.short_lead }}">
+        {% if page.generate_og_preview_picture and page.generated_og_preview_picture %}
+            <meta property="og:image" content="https://{{ request.get_host }}{{ page.generated_og_preview_picture.url }}">
+        {% else %}
+            <meta property="og:image" content="https://{{ request.get_host }}{{ preview_picture.url }}">
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div role="main" class="ui-content">
+    <div class="wrapper">
+        <article>
+            {% if page.rubric.title == 'Promotion' or page.rubric_title_as_promo or page.show_in_promo %}
+                <div class="promotion">
+                    promotion
+                </div>
+            {% endif %}
+            <div class="lead">
+                {% block entry_title %}
+                    <header>
+                        <h1>
+                            {% if page.full_title %}
+                                {{ page.full_title }}
+                            {% else %}
+                                {{ page.title }}
+                            {% endif %}
+												</h1>
+												<div>
+														<noindex>
+																<ul class="social-likes">
+																		<li>
+																				<a rel="nofollow" class="social_share fb-share" data-type="fb">
+																						<i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+																				</a>
+																		</li>
+																		<li>
+																				<a rel="nofollow" class="social_share vk-share" data-type="vk">
+																						<i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+																				</a>
+																		</li>
+																		<li>
+																				<a rel="nofollow" class="social_share tw-share" data-type="tw">
+																						<i class="l-ico">TW:</i>
+																				</a>
+																		</li>
+																</ul>
+														</noindex>
+												</div>
+                        <div class="text-lead">
+                            {% if page.full_lead %}
+                                {{ page.full_lead }}
+                            {% else %}
+                                {{ page.short_lead }}
+                            {% endif %}
+                        </div>
+                    </header>
+                {% endblock %}
+            </div>
+            <div class="text clearfix">
+                {% article_before_content_mobile_scripts page=page %}
+                <a href="" class="slide-anchor"></a>
+                {% for block in page.body %}
+                    {% if block.block_type != 'notes' %}
+                        <section class="block-{{ block.block_type }}">
+                            {% include_block block %}
+                        </section>
+                    {% endif %}
+                {% endfor %}
+                {% article_after_content_mobile_scripts page=page %}
+            </div>
+            <ul class="article_info">
+                {% if page.tags.exists %}
+                    <li>
+                        <div class="info_label">Теги</div>
+                        <div class="info_description">
+                            <ul class="tags">
+                                {% for tag in page.tags.all %}
+                                    <li>
+                                        <a href="/tag/{{ tag.slug }}/">{{ tag.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                <li>
+                    <div class="info_label">Дата</div>
+                    <div class="info_description">{{ page.published_at|date:"j E Y" }}</div>
+                </li>
+                {% with page.authors.all as authors %}
+                    {% if authors %}
+                        <li>
+                            <div class="info_label">Автор</div>
+                            <div class="info_description">
+                                {% for author in authors %}{% if forloop.counter0 > 0 %},{% endif %}
+                                    {{ author.first_name }} {{ author.last_name }}{% endfor %}</div>
+                        </li>
+                    {% endif %}
+                {% endwith %}
+                {% for block in page.body %}
+                    {% if block.block_type == 'notes' %}
+                        {% include_block block %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div>
+                <noindex>
+                    <ul class="social-likes">
+                        <li>
+                            <a rel="nofollow" class="social_share fb-share" data-type="fb">
+                                <i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" class="social_share vk-share" data-type="vk">
+                                <i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" class="social_share tw-share" data-type="tw">
+                                <i class="l-ico">TW:</i>
+                            </a>
+                        </li>
+                    </ul>
+                </noindex>
+            </div>
+            <div class="advmarg">
+                {% load_banner banner_id='inread_content_mobile' %}
+            </div>
+
+        </article>
+    </div>
+    {% load_banner banner_id='mobile_top' %}
+{% endblock %}
+

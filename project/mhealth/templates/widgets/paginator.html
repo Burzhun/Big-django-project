@@ -1,0 +1,49 @@
+<div class="b-pag-nav" id="nav_start">
+    <div class="prev">
+        {% if page_obj.number == 1 %}
+            <span class="active">1</span>
+        {% else %}
+            {% if special_tag %}
+                <a href="?page=1&search_tag={{ special_tag.id }}">1</a>
+            {% elif special_tag_group %}
+                <a href="?page=1&search_group={{ special_tag_group.id }}">1</a>
+            {% else %}
+                <a href="?page=1">1</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="next">
+        {% if page_obj.number == page_obj.paginator.num_pages %}
+            <span class="active">{{ page_obj.paginator.num_pages }}</span>
+        {% else %}
+            {% if special_tag %}
+                <a href="?page={{ page_obj.paginator.num_pages }}&search_tag={{ special_tag.id }}">
+                    {{ page_obj.paginator.num_pages }}
+                </a>
+            {% elif special_tag_group %}
+                <a href="?page={{ page_obj.paginator.num_pages }}&search_group={{ special_tag_group.id }}">
+                    {{ page_obj.paginator.num_pages }}
+                </a>
+            {% else %}
+                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <ul>
+        {% for n in page_range %}
+            <li>
+                {% if n == page_obj.number %}
+                    <span class="active">{{ n }}</span>
+                {% else %}
+                    {% if special_tag %}
+                        <a class="item" href="?page={{ n }}&search_tag={{ special_tag.id }}">{{ n }}</a>
+                    {% elif special_tag_group %}
+                        <a class="item" href="?page={{ n }}&search_group={{ special_tag_group.id }}">{{ n }}</a>
+                    {% else %}
+                        <a class="item" href="?page={{ n }}">{{ n }}</a>
+                    {% endif %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

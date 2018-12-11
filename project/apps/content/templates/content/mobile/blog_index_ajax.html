@@ -1,0 +1,47 @@
+{% load banner_tags wagtailimages_tags %}
+
+{% for blog, entries in blogs %}
+    <ul class="announce_thumbs">
+        {% for entry in entries %}
+            <li>
+                <div class="announce_thumb_item">
+                    {% if not page_obj %}
+                        <div class="blogger clearfix">
+                            <a href="{{ page.get_url }}{{ blog.slug }}" class="img ui-link">
+                                {% image blog.preview_picture fill-40x40 width=40 height=40 %}
+                            </a>
+                            <div class="name">
+                                <a href="{{ page.get_url }}{{ blog.slug }}"
+                                   class="ui-link">{{ blog.title }}</a>
+                            </div>
+                            <div class="type">{{ blog.short_description|default:"" }}</div>
+                        </div>
+                    {% endif %}
+                    <a href="{{ entry.get_url }}"
+                       class="img ui-link">
+                        {% image entry.preview_picture fill-450x300 width='auto' height='auto' %}
+                    </a>
+
+                    <div class="title">
+                        <a href="{{ entry.get_url }}" class="ui-link">{{ entry.title }}</a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if not page_obj %}
+        <div class="all_section">
+            <a href="{{ page.get_url }}{{ blog.slug }}" class="ui-link">Все посты</a>
+        </div>
+    {% else %}
+        {% if page_obj.has_next %}
+            <div class="show_more">
+                <a href="" id="show_more_btn"
+
+                   data-url="{{ page.get_url }}{{ blog.slug }}/?page={{ page_obj.next_page_number }}"
+                   data-page="{{ page_obj.number }}"
+                   class="btn ui-link">Показать еще</a>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}

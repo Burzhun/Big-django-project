@@ -1,0 +1,35 @@
+.w__btn__loader {
+    margin: 15px auto 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+    border: 1px solid #00caf2;
+    max-width: 245px;
+    font-family: 'mhrg';
+    font-size: 16px;
+    color: #00bfe6;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 48px;
+}
+
+.w__btn__loader:hover {
+    font-size: 15.5px;
+}
+
+.w__btn__loader.w__btn__not__border {
+    border: 1px solid transparent;
+}
+
+.w__loader__hidden {
+    display: none;
+}
+
+.w__loader__wrapp {
+    max-width: 960px;
+}

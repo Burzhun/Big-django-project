@@ -1,0 +1,136 @@
+@font-face {
+  font-family: 'BebasNeue';
+  src: url("../fonts/BebasNeueBold/BebasNeueBold.eot");
+  src: url("../fonts/BebasNeueBold/BebasNeueBold.eot?#iefix") format('embedded-opentype'),url("../fonts/BebasNeueBold/BebasNeueBold.woff") format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BebasNeue';
+  src: url("../fonts/BebasNeueRegular/BebasNeueRegular.eot");
+  src: url("../fonts/BebasNeueRegular/BebasNeueRegular.eot?#iefix") format('embedded-opentype'), url("../fonts/BebasNeueRegular/BebasNeueRegular.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Tahoma';
+  src: url("../fonts/Tahoma/Tahoma.eot");
+  src: url("../fonts/Tahoma/Tahoma.eot?#iefix") format('embedded-opentype'), url("../fonts/Tahoma/Tahoma.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Tahoma';
+  src: url("../fonts/TahomaBold/TahomaBold.eot");
+  src: url("../fonts/TahomaBold/TahomaBold.eot?#iefix") format('embedded-opentype'), url("../fonts/TahomaBold/TahomaBold.woff") format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+.wrapper_test_dev{
+	max-width: 600px;
+	margin: 0 auto;
+	width: 100%;
+}
+.wrapper_test_dev .nex_test_text {
+  display: none;
+}
+.wrapper_test_dev img {
+  max-height: 340px !important;
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover;
+}
+.wrapper_test_dev .final_test_wrap img {
+  width: auto !important;
+}
+.wrapper_test_dev .final_test_wrap .img_final_test {
+  margin: 0 auto;
+  display: block;
+}
+.wrapper_test_dev .final_test_sha_btn {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.wrapper_test_dev .final_test_sha_btn .share_link_test {
+  display: flex;
+}
+.wrapper_test_dev .final_test_sha_btn div {
+  cursor: pointer;
+}
+.wrapper_test_dev .final_test_sha_btn img {
+  width: 22px !important;
+  height: auto !important;
+  padding: 10px;
+  border: 1px solid #eee;
+}
+.wrapper_test_dev .test_wrapper-form {
+  display: none;
+}
+.wrapper_test_dev .final_test_title {
+  text-align: center;
+}
+.wrapper_test_dev .name_title_big_front,
+.wrapper_test_dev .final_test_title {
+  font: bold 24px/26px 'BebasNeue';
+  color: #262626;
+  text-transform: uppercase;
+  margin: 30px 0 25px;
+}
+.wrapper_test_dev .final_test_descript {
+  font: bold 18px/24px 'Tahoma';
+  margin-bottom: 15px;
+}
+.wrapper_test_dev .test_text_zag {
+  margin-bottom: 25px;
+}
+.wrapper_test_dev .btn_test_blue {
+  width: 160px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: bold 16px/18px 'Tahoma';
+  color: #fff;
+  background: #00bfe6;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.wrapper_test_dev .test_text-content {
+  font: bold 25px/27px 'BebasNeue';
+  font-weight: bold;
+  color: #262626;
+  margin: 30px 0 25px;
+}
+.wrapper_test_dev .clock_test label {
+  display: flex;
+	align-items: center;
+	padding: 32px;
+  border: 1px solid #e6e6e6;
+  margin-bottom: 5px;font: normal 18px/30px 'Tahoma';
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+.wrapper_test_dev .clock_test label:hover {
+  border-color: #00bfe6;
+}
+.wrapper_test_dev .clock_test input {
+  display: none;
+}
+@media (max-width: 599px) {
+    .wrapper_test_dev .clock_test label {
+        font: normal 16px/24px 'Tahoma';
+        padding: 16px;
+    }
+    .wrapper_test_dev .final_test_descript {
+        font: bold 14px/17px 'Tahoma';
+        margin-bottom: 15px;
+    }
+}
+p {
+    font: normal 16px/25px Tahoma, Helvetica, sans-serif;
+    margin: 0 0 20px 0;
+    color: #000;
+}

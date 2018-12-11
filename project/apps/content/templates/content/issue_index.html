@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection" id="inc_block_main">
+        <div class="main_announce_list page_archive_list">
+            <h1>{{ page.title }}</h1>
+            {% include 'content/issue_index_ajax.html' %}
+        </div>
+        <div id="inc_block_right" class="slidesection">
+            <div class="float-block">
+                <div>
+                    {% load_banner banner_id='300x600' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}

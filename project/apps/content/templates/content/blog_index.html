@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection page_bloggers_list" id="inc_block_main">
+        <h1>{{ page.title }}</h1>
+        {% for blog, entries in blogs %}
+            <div class="main_announce_list swiper-container">
+                <div class="blogger clearfix">
+                    <a href="{{ page.get_url }}{{ blog.slug }}" class="img">
+                        {% image blog.preview_picture fill-60x60 width=60 height=60 %}
+                    </a>
+                    <div class="name">
+                        <a href="{{ page.get_url }}{{ blog.slug }}">{{ blog.title }}</a>
+                    </div>
+                    <div class="type">
+                        {{ blog.description }}
+                    </div>
+                </div>
+                <ul {% if not page_obj %}class="swiper-wrapper clearfix"
+                    style="padding-left: 0; padding-right: 0; width: 960px; height: 562px;"{% endif %}>
+                    {% for entry in entries %}
+                        <li {% if not page_obj %}class="swiper-slide swiper-slide-visible swiper-slide-active"{% endif %}>
+                            <a href="{{ entry.get_url }}" class="img">
+                                {% image entry.preview_picture fill-300x215 width=300 height=215 %}
+                            </a>
+                            <div class="title">
+                                <a href="{{ entry.get_url }}">{{ entry.title }}</a>
+                            </div>
+                            <div class="date">{{ entry.published_at|date:"j E Y" }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if not page_obj %}
+                    <div class="bottom_panel"><a href="{{ page.get_url }}{{ blog.slug }}" class="all_link">Все
+                        статьи</a></div>
+                {% endif %}
+                {% if page_obj %}
+                    {% paginator paginator_obj=page_obj %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block side %}
+    <div  id="inc_block_right" class="slidesection">
+        <div class="advertise">
+            <div>
+                {% load_banner banner_id='300x600' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

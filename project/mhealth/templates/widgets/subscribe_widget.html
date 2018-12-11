@@ -1,0 +1,29 @@
+{% if items %}
+    {% load wagtailimages_tags %}
+    {% load static %}
+    <div class="subscribe_modal_popup">
+      <div class="subscribe_modal_popup_content">
+          {% for item in items %}
+            <div class="items_subscribe">
+                {% image item.icon fill-57x57 %}
+                <a href="{{ item.link }}" class="title_subscribe">{{ item.title }}</a>
+            </div>
+            {% if forloop.counter == 2  %}
+                <div class="items_subscribe_mail">
+                    <form id="form_email_subscribe">
+
+                        <div class="email_subscribe">
+                            Подписаться на новости <br>
+                            <input type="text" placeholder="Введите e-mail" id="email_subscribe">
+                            <img style="cursor: pointer;" onclick="sendEmail(); return false;" src="{% static 'img/2.png' %}" alt="">
+                        </div>
+                        <div class="email_subscribe_succ" style="display: none; min-width: 260px;">
+                            Спасибо!<br>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+{% endif %}

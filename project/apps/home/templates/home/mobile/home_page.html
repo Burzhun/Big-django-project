@@ -1,0 +1,73 @@
+{% extends "mobile/base.html" %}
+{% load wagtailimages_tags %}
+{% load content_widgets %}
+{% load banner_tags %}
+{% load static %}
+
+{% block content %}
+    <script>
+        var ids = {{ ids }};
+    </script>
+    <div role="main" class="ui-content">
+        {% for content in structure %}
+            {% if content.type != 'banner' %}
+                <div class="wrapper">
+                    <ul class="announce_list">
+                        {% for block in content.items %}
+                            {{ block }}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="w__loader">
+            <div class="container">
+                <div class="w__loader__wrapp">
+                    <div class="w__btn__loader">
+                        <span>Показать еще</span>
+                        <img src="{% static 'img/w__loader.gif' %}" alt="" class="w__loader__hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <section class="container">
+                <header class="clearfix">
+                    <h3>Советы экспертов</h3>
+                    <a href="{{ expert_page.get_url }}" class="all_section">все эксперты</a>
+                </header>
+                <div id="experts_slider" class="swiper-container experts">
+                    <div class="swiper-wrapper"
+                         style="padding-left: 0; padding-right: 0; width: 1320px; height: 330px;">
+                        {% for answer in answers %}
+                            <div class="swiper-slide swiper-slide-visible">
+                                {% with answer.get_parent.specific as expert %}
+                                    <div class="content">
+                                        <div class="subtitle">Вопрос</div>
+                                        <div class="title">
+                                            <a href="{{ answer.get_url }}">{{ answer.title }}</a>
+                                        </div>
+                                        <div class="blogger">
+                                            <div class="name">
+                                                <a href="{{ expert.get_url }}">{{ expert.title }}</a>
+                                            </div>
+                                            <div class="type">{{ expert.short_description|default:'' }}</div>
+                                        </div>
+                                        <a href="{{ expert.get_url }}">
+                                            {% image expert.image fill-65x85 width=65 height=85 class='img' %}
+                                        </a>
+                                    </div>
+                                    <a href="{{ expert.get_url }}#form" class="btn">Задать вопрос</a>
+                                {% endwith %}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div id="experts_slider_pagination" class="pagination"></div>
+
+            </section>
+        </div>
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}

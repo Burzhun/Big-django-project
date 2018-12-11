@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Регистрация</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper form clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <aside id="inc_block_right" class="slidesection">
+                <div class="advertise">
+                    <div></div>
+                </div>
+            </aside>
+            <div id="inc_block_main" class="form_page clearfix">
+                <ul class="tab_menu">
+                    <li class="selected"><a href="{% url 'registration' %}">Регистрация</a></li>
+                    <li><a href="{% url 'login' %}">Вход</a></li>
+                </ul>
+                <div class="form_feedback incorrect gray">
+                    <span class="text_warning">Все поля обязательны для заполнения. </span>
+                </div>
+                {% if form.errors %}
+                    <div class="form_feedback incorrect">
+                        <span class="title">Что-то пошло не так</span>
+                        <br>
+                        {% for error in field.non_field_errors %}
+                            {{ error|escape }}<br><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="tab-content">
+                    <form class="form-horizontal" role="form" method="post" name="regform"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>E-mail</span></label>
+                                <div class="{% if form.email.errors %}incorrect{% endif %}">
+                                    <input type="text"
+                                           class="form-control  "
+                                           size="30" name="email" value="{{ form.email.value|default:'' }}">
+                                    {% if form.email.errors %}
+                                        <span>{% for error in form.email.errors %}{{ error|escape }} {% endfor %}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group helper">
+                                <div class="text opacity70">На указанный e-mail придет запрос на подтверждение
+                                    регистрации
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Имя</span></label>
+                                <div class=" {% if form.first_name.errors %}incorrect{% endif %}">
+                                    <input class="form-control"
+                                           type="text" size="30" name="first_name"
+                                           value="{{ form.first_name.value|default:'' }}">
+
+                                    {% if form.first_name.errors %}
+                                        <span>{% for error in form.first_name.errors %}{{ error|escape }} {% endfor %}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group helper">
+                                <div class="text opacity70">Будет отображаться в комментариях</div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Фамилия</span></label>
+                                <div class=" {% if form.last_name.errors %}incorrect{% endif %}">
+                                    <input class="form-control"
+                                           type="text" size="30" name="last_name"
+                                           value="{{ form.last_name.value|default:'' }}">
+
+                                    {% if form.last_name.errors %}
+                                        <span>{% for error in form.last_name.errors %}{{ error|escape }} {% endfor %}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group helper">
+                                <div class="text opacity70">Будет отображаться в комментариях</div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="block">
+
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Пароль</span></label>
+                                <div class="{% if form.password1.errors %}incorrect{% endif %}">
+                                    <input class="form-control"
+                                           size="30" type="password" name="password1"
+                                           value=""
+                                           autocomplete="off">
+                                    {% if form.password1.errors %}
+                                        <span>{% for error in form.password1.errors %}{{ error|escape }} {% endfor %}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group helper">
+                                <div class="text opacity70">Минимум 6 символов</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Повтор пароля</span></label>
+                                <div class="{% if form.password2.errors %}incorrect{% endif %}">
+                                    <input class="form-control"
+                                           size="30" type="password" name="password2"
+                                           value="" autocomplete="off">
+                                    {% if form.password2.errors %}
+                                        <span>{% for error in form.password2.errors %}{{ error|escape }} {% endfor %}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group helper">
+                            <div class="inline-group">
+                                {{ form.captcha }}
+                                <div class="checkbox-inline">
+                                    <label>
+
+                                        <div class="fields boolean" id="main_UF_RULES">
+                                            <div class="fields boolean">
+                                                <input type="checkbox" value="1" name="uf_rules">
+                                            </div>
+                                        </div>
+                                        Я принимаю условия <a href="/about/license_agreement/">Соглашения
+                                        о размещении материалов</a> на сайте <a href="/">mhealth.ru</a>
+                                        и условия <a href="{% static 'docs/moscowtimes_rules.docx' %}">
+                                        политики в отношении обработки персональных данных ООО «Москоутаймс»</a>.
+                                        {% if form.uf_rules.errors %}
+                                            <div class="help-block">{{ form.uf_rules.errors|escape }}</div>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="inline-group">
+                                <input type="submit" name="register_submit_button" class="btn" value="Регистрация">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

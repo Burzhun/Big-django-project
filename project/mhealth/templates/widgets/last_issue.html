@@ -1,0 +1,7 @@
+{% load wagtailimages_tags %}
+<a class="magazine_announce" href="{{ issue.get_url }}">
+    <span class="lead">Новый номер</span>
+    <span class="title">{{ issue.title }}</span>
+    {% image issue.cover fill-206x268 width=206 height=268 class='cover' %}
+    <span class="description">Все самое интересное, что ты не нашел на <i>Mhealth.ru</i>, читай каждый месяц в журнале Men's Health!</span>
+</a>

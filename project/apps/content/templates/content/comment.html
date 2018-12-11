@@ -1,0 +1,39 @@
+{% load comments_tags %}
+{% load static %}
+<div class="b-cmtItem b-cmtItem-0">
+    <div class="holder" id="c{{ comment.id }}">
+        <div class="cmtHeader clearfix">
+            <div class="title">{{ comment.author.full_name }}</div>
+            <div class="date">{{ comment.date_published }}</div>
+        </div>
+        <div class="avatar">
+            {% if comment.author %}
+                <a href="{% url 'profile' id=comment.author.id %}" rel="nofollow">
+                    <img src="
+                            {% if comment.author.avatar %}{{ comment.author.avatar.url }}{% else %}{% static 'img/no_avatar.png' %}{% endif %}"
+                         width="60" height="60" alt="{{ comment.author.full_name }}">
+                </a>
+            {% else %}
+                <img src="{% static 'img/no_avatar.jpg' %}" width="50" height="50" alt="{{ comment.name }}">
+            {% endif %}
+        </div>
+
+        <div class="comment_content">
+            <p>
+                {{ comment.text }}
+            </p>
+        </div>
+        <div class="b-moreset">
+            {% if not request.user.is_authenticated %}
+                <a href="" data-toggle="modal" data-target="#login_modal">
+            {% else %}
+                <a href="#reply" class="reply">
+            {% endif %}Ответить</a>
+            {% autoescape off %}{% can_delete user=request.user comment=comment %}{% endautoescape %}
+        </div>
+    </div>
+    {% for comment in comment.child_comments.all %}
+        {% include 'content/comment.html' %}
+    {% endfor %}
+
+</div>

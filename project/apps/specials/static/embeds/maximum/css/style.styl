@@ -1,0 +1,372 @@
+@font-face {
+  font-family: 'BebasNeue';
+  src: url("../fonts/BebasNeueBold/BebasNeueBold.eot");
+  src: url("../fonts/BebasNeueBold/BebasNeueBold.eot?#iefix") format('embedded-opentype'), url("../fonts/BebasNeueBold/BebasNeueBold.woff") format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BebasNeue';
+  src: url("../fonts/BebasNeueRegular/BebasNeueRegular.eot");
+  src: url("../fonts/BebasNeueRegular/BebasNeueRegular.eot?#iefix") format('embedded-opentype'),url("../fonts/BebasNeueRegular/BebasNeueRegular.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Tahoma';
+  src: url("../fonts/Tahoma/Tahoma.eot");
+  src: url("../fonts/Tahoma/Tahoma.eot?#iefix") format('embedded-opentype'), url("../fonts/Tahoma/Tahoma.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Tahoma';
+  src: url("../fonts/TahomaBold/TahomaBold.eot");
+  src: url("../fonts/TahomaBold/TahomaBold.eot?#iefix") format('embedded-opentype'), url("../fonts/TahomaBold/TahomaBold.woff") format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+  margin: 0
+  padding: 0
+  border: 0
+  font-size: 100%
+  font: inherit
+  vertical-align: baseline
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section
+  display: block
+
+body
+  line-height: 20px
+
+ol, ul
+  list-style: none
+
+blockquote, q
+  quotes: none
+
+blockquote:before, blockquote:after,
+q:before, q:after
+  content: ''
+  content: none
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+*
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  &:before, &:after
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+*::-webkit-input-placeholder
+  color: #666
+  opacity: 1
+
+*:-moz-placeholder
+  color: #666
+  opacity: 1
+
+*::-moz-placeholder
+  color: #666
+  opacity: 1
+
+*:-ms-input-placeholder
+  color: #666
+  opacity: 1
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid
+  color: #666
+body input:required:valid,
+body textarea:required:valid
+  color: #666
+
+html, body
+  height: 100%
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+body
+  font-family: Tahoma
+  line-height: 1
+
+.w__calculator__content
+  max-width: 600px
+  padding: 30px;
+  margin: 20px auto;
+  border: 1px solid #eee;
+.w__calculator__title-center
+  text-align: center
+  text-transform: uppercase
+.w__calculator__title-big
+  font-size: 24px
+  font-weight: bold
+  font-family:  BebasNeue
+  color: #262626
+  margin-bottom: 20px
+
+.w__calculator__description
+  font-size: 16px
+  padding-bottom: 20px
+  border-bottom: 1px solid #e53917
+  margin-bottom: 25px
+  line-height: 19px
+
+.w__justify-content
+  display: flex
+  justify-content: space-around
+
+.w__calculator__label
+  display: flex
+  align-items: center
+  span
+    font-size: 16px
+    font-family: BebasNeue
+    display: block
+    margin-right: 10px
+    font-weight: bold
+    text-transform: uppercase
+.w__calculator__label-right
+  text-align: right
+.w__input
+  width: 60px
+  height: 40px
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  background: none
+  border: 1px solid #d9d9d9
+  padding: 0 10px
+.w__calculator__label-margin
+  span
+    text-align: right
+.w__calculator__label-select
+  margin-top: 20px
+.w__calculator__select
+  max-width: 379px
+  width: 100%
+  height: 40px
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  padding-left: 5px
+  padding-right: 5px
+  border: 1px solid #d9d9d9;
+  background: none
+  color: #4d4d4d
+  -webkit-appearance: none;
+.w__calculator__button,#button1
+  font-size: 16px
+  color: #fff
+  font-family: BebasNeue
+  -webkit-appearance: none;
+  font-weight: bold
+  text-transform: uppercase
+  width: 160px
+  height: 40px
+  background: #00bfe6
+  border: none
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  margin: 20px auto 0
+  display: block
+  border-radius: 5px
+  cursor: pointer
+#button1
+  margin: 20px 0 0
+.w__calculator__result__wrapper
+  padding: 20px
+  background: #f2f2f2
+  margin-top: 25px
+  margin-bottom: 3px
+
+.w__calculator__param
+  display: flex
+  justify-content: space-between
+  margin-bottom: 5px
+
+.w__calculator__abstract
+  font-size: 11px
+  color: #666666
+  margin-bottom: 25px
+.w__calculator__title-mini
+  font-size: 18px
+  font-weight: bold
+  font-family:  BebasNeue
+  color: #262626
+  margin-bottom: 10px
+
+
+.w__calculator__footer
+  display: flex
+  align-items: flex-end
+  position: relative
+  margin-top: 35px
+  padding-top: 20px
+  border-top: 1px solid #ccc
+  justify-content: space-between
+  .w__calculator__logo
+    img
+      height: 28px
+
+.w__calculator__social
+  font-size: 24px
+  text-decoration: none
+  color: #999999
+  -webkit-transition: 0.1s linear
+  -moz-transition: 0.1s linear
+  -ms-transition: 0.1s linear
+  -o-transition: 0.1s linear
+  transition: 0.1s linear
+  opacity: 0.8
+  &:hover
+    opacity: 1
+    &:nth-child(1)
+      color: #3A548E
+    &:nth-child(2)
+      color: #517399
+    &:nth-child(4)
+      color: #50ABF1
+    &:nth-child(3)
+      color: #EF8117
+    &:nth-child(5)
+      color: #5CAFD7
+
+.w__calculator__iframe
+  font-size: 14px
+  color: #00bfe6
+  cursor: pointer
+
+.w__calculator__restart
+  font-size: 16px
+  color: #fff
+  font-family: BebasNeue
+  font-weight: bold
+  text-transform: uppercase
+  width:  100%
+  height: 40px
+  background: #00bfe6
+  border: none
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  cursor: pointer
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-top: 20px
+.w__calculator__iframe__wrapp
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  z-index: 999
+  background: rgba(0,0,0,.5)
+  display: none
+  align-items: center
+  justify-content: center
+  .w__calculator__iframe__title
+    font-size: 18px
+    font-family: BebasNeue
+    font-weight: bold
+  .w__calculator__iframe__content
+    max-width: 480px
+    position: relative
+    width: 100%
+    text-align: center
+    padding: 30px
+    background: #fff
+  .w__calculator__iframe__close
+    position: absolute
+    cursor: pointer
+    right: 10px
+    top: 5px
+    font-size: 26px
+    color: #999999
+  .w__calculator__iframe__code
+    textarea
+      height: 100%
+      width: 100%
+      min-height: 100px
+      padding: 10px
+      margin-top: 20px
+      border: 1px solid #d9d9d9
+
+.mobile,.hidden
+  display: none
+@media all and (max-width: 768px)
+  .desktop
+    display: none
+  .mobile
+    display: block
+  .w__calculator__socials
+    padding: 10px
+    background: #fff
+    position: absolute
+    left: 0
+    top: 0
+    .w__calculator__social
+      margin-right: 5px
+  .w__justify-content
+    flex-direction: column
+
+  .w__calculator__label-margin span
+    width: auto
+    text-align: left
+    margin-bottom: 5px
+  .w__calculator__label
+    display: block
+    margin-bottom: 20px
+  .w__calculator__label-select
+    margin-top: 0
+  .w__input
+    width: 100%
+  .w__calculator__select
+    max-width: 100%
+  .w__calculator__button
+    margin-left:  auto
+    -webkit-appearance: none;
+    width: 100%
+  .w__calculator__title-mini
+    text-align: center
+  .w__calculator__param
+    display: block
+    text-align: center
+    margin-bottom: 15px
+    .w__calculator__result__text
+      margin-bottom: 10px
+    .w__calculator__result__count
+      padding-bottom: 5px
+      border-bottom: 1px solid #999999
+      color: #999999
+  .w__calculator__abstract
+    text-align: center

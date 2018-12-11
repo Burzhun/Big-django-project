@@ -1,0 +1,30 @@
+{% load static wagtailimages_tags %}
+{#<div class="wrapper top_news clearfix">#}
+{#    <div id="top_news_swipper" class="swiper-container">#}
+{#        <div class="swiper-wrapper">#}
+{#            {% for item in items %}#}
+{#            <div class="swiper-slide">#}
+{#                <a href="{{ item.link }}" title="{{ item.title }}" target="_blank">#}
+{#                    {% image item.icon fill-300x215  class="img" %}#}
+{#                    <span class="title"><span>{{ forloop.counter }}</span>{{ item.title }}</span>#}
+{#                </a>#}
+{#            </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+<div class="wrapper top_news clearfix">
+    <div id="top_news_swipper" class="swiper-container">
+        <div class="swiper-wrapper" >
+            {% for item in items %}
+                <div class="swiper-slide">
+                    <a href="{{ item.link }}" title="{{ item.title }}" target="_blank">
+                        {% image item.icon fill-60x60 width=60 height=60 class="img" %}
+                        <span class="title">{{ item.title }}</span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,18 @@
+{% load menu_tags content_widgets %}
+<div data-role="panel" id="menu_panel" data-position="left" data-display="push" data-theme="b">
+    <div class="left_menu_holder">
+        <ul id="left_main">
+            {% for item in menu_items %}
+                <li class="m-item {% active_class_item item %}">
+                    <a href="{{ item.href }}">{{ item.text }}</a>
+                        <ul>
+                            {% sub_menu item %}
+                        </ul>
+                </li>
+            {% endfor %}
+
+        </ul>
+        {% other_menu menu_name="side_menu" template_name="menus/side_menu.html" %}
+    </div>
+
+</div>

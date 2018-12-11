@@ -1,0 +1,25 @@
+{% load wagtailimages_tags %}
+
+
+<div class="block-gallery">
+	<div class="slides slides-{{ forloop.counter }}">
+		{% for item in value %}
+			<div class="slide">{% image item.image max-600x630 style="height: auto;" %}</div>
+		{% endfor %}
+	</div>
+	<div class="slide-controls">
+		<div class="slide-captions slide-captions-{{ forloop.counter }}">
+			{% for item in value %}
+				<div class="slide-caption">{{ item.caption|striptags|safe }}</div>
+			{% endfor %}
+		</div>
+		<div class="slide-pagination slide-pagination-{{ forloop.counter }}"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	if (typeof galleriesNumber == 'undefined'){
+		var galleriesNumber = [{{ forloop.counter }}];
+	} else {
+		galleriesNumber.push({{ forloop.counter }});
+	}
+</script>

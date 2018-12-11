@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+
+{% block title %}Вход{% endblock %}
+
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Вход</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper form clearfix">
+        <div id="block_ws_adv" class="container clearfix">
+            <aside id="inc_block_right" class="slidesection">
+                <div class="advertise">
+                    <div>
+                    </div>
+                </div>
+            </aside>
+            <div id="inc_block_main" class="form_page clearfix">
+                <ul class="tab_menu">
+                    <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                    <li class="selected"><a href="{% url 'login' %}">Вход</a></li>
+                </ul>
+                <div class="tab-content">
+                    <form name="form_auth" class="form-horizontal" method="post" target="_top"
+                          action="{% url 'login' %}">
+                        <input type="hidden" name="backurl" value="/">
+                        {% csrf_token %}
+
+                        {% if error %}
+                            <div class="form_feedback incorrect">
+                                <span class="title">Что-то пошло не так</span>
+                                <br>
+                                Неверный email или пароль.<br>
+                            </div>
+                        {% endif %}
+
+                        <fieldset class="block">
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Email</span></label>
+                                <div class="">
+                                    <input type="text" class="form-control" name="email" maxlength="255"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="control-label"><span>Пароль</span></label>
+                                <div class="">
+                                    <input type="password" name="password" maxlength="255" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group helper">
+                                <div class="text"><a href="{% url 'password_reset' %}" rel="nofollow">Забыл
+                                    пароль?</a></div>
+                                <div class="inline-group after_helper">
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input type="checkbox" id="USER_REMEMBER" name="USER_REMEMBER" value="Y"
+                                                   checked="checked">Запомнить меня
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="inline-group">
+                                    <div class="g-recaptcha"
+                                         data-sitekey="6Ldy-VAUAAAAAOuZc0KYktWqtby3lTsk5tiPk2ba"></div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="inline-group">
+                                    <button type="submit" name="Login" class="btn">Войти</button>
+                                </div>
+                            </div>
+                            <div class="separator"></div>
+                            <dl class="register_offer">
+                                <dd>Нет аккаунта на сайте?</dd>
+                                <dt><a href="{% url 'registration' %}">Зарегистрируйся</a></dt>
+                            </dl>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="login_social_box social">
+                    <span class="title">ВОЙТИ ЧЕРЕЗ АККАУНТ СОЦСЕТЕЙ:</span>
+
+                    <a href="{% url 'social:begin' 'vk-oauth2' %}?next={{ request.path }}" id="vk" class="vk-auth">
+                        <ins class="b-soc-ico ico-vk big"></ins>
+                    </a>
+                    <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb" class="fb-auth">
+                        <ins class="b-soc-ico ico-fb big"></ins>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

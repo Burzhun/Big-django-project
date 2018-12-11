@@ -1,0 +1,29 @@
+{% load banner_tags wagtailimages_tags %}
+<ul class="announce_thumbs">
+    {% for entry in entries %}
+        <li>
+            <div class="subsection_title">
+                {% with entry.get_parent as parent %}
+                    <a href="{{ parent.get_url }}" class="ui-link">{{ parent.title }}</a>
+                {% endwith %}
+            </div>
+            <div class="announce_thumb_item">
+                <a href="{{ entry.get_url }}" class="img ui-link">
+                    {% image entry.preview_picture fill-450x300 width="auto" height="auto" %}
+                </a>
+                <div class="title">
+                    <a href="{{ entry.get_url }}" class="ui-link">{{ entry.title }}</a>
+                </div>
+                <div class="date">{{ entry.published_at|date:"d E Y" }}</div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% if page_obj.has_next %}
+    <div class="show_more">
+        <a href="" id="show_more_btn"
+           data-url="{{ page.get_url }}{{ tag.slug }}/?page={{ page_obj.next_page_number }}"
+           data-page="{{ page_obj.number }}"
+           class="btn ui-link">Показать еще</a>
+    </div>
+{% endif %}

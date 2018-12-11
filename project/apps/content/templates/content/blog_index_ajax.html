@@ -1,0 +1,5 @@
+{% if request.user_agent.is_mobile %}
+    {% include 'content/mobile/blog_index_ajax.html' %}
+{% else %}
+    {% include 'content/blog_index.html' %}
+{% endif %}

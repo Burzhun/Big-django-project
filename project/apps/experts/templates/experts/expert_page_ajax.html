@@ -1,0 +1,9 @@
+{% if request.user_agent.is_mobile %}
+    {% include 'experts/mobile/expert_page_ajax.html' %}
+{% else %}
+    {% for answer in answers %}
+        <li>
+            <a href="{{ answer.get_url }}">{{ answer.title }}</a>
+        </li>
+    {% endfor %}
+{% endif %}

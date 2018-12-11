@@ -1,0 +1,34 @@
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+{% load wagtailimages_tags content_widgets %}
+	<channel>
+		<atom:link href="{{ host }}/rss/news_yandex_dzen_ru.xml" rel="self" type="application/rss+xml"/>
+		<title>{{ title }}</title>
+		<link>{{ host }}</link>
+		<description>{{ description }}</description>
+		<language>ru</language>
+		<lastBuildDate></lastBuildDate>
+
+		{% for page in articles %}
+		    <item>
+		    	{% image page.preview_picture width-400 as tmp_photo %}
+		        <title><![CDATA[{{ page.title|safe }}]]></title>
+		        <link>{{ host }}{{ page.get_url }}</link>
+		        <description><![CDATA[ {{ page.full_lead|striptags|safe }}]]></description>
+		        <guid>{{ host }}{{ page.get_url }}</guid>
+		        <content:encoded><![CDATA[
+		        	<figure>
+		        		<img height="{{ tmp_photo.height }}" src="{{ host }}{{ tmp_photo.url }}" width="{{ tmp_photo.width }}">
+		        	</figure>
+		            {% for block in page.body %}
+		                {% if block.block_type == "paragraph" %}
+		                    {{ block.value|striptags|safe_text|safe }}
+		                {% endif %}
+		            {% endfor %}
+		        ]]></content:encoded>
+                <pubDate>{{ page.published_at|date:"D, d M Y H:i:s O" }}</pubDate>
+
+		        <enclosure url="{{host}}{{ tmp_photo.url }}" type="image/jpeg"/>
+		    </item>
+		{% endfor %}
+	</channel>
+</rss>

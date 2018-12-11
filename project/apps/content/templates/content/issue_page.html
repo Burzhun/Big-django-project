@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags static %}
+{% load wagtailcore_tags %}
+{% block rubric_block %}
+
+{% endblock %}
+
+{% block container_wrapper %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+    <div class="wrapper page_archive_detail clearfix">
+        <div class="container clearfix">
+            <h1>{{ page.title }}</h1>
+            <div class="slidesection">
+                <div class="advertise">
+                    <div>
+                        {% load_banner banner_id='300x600' %}
+                    </div>
+                </div>
+            </div>
+            <div class="leftsection">
+                {% image page.cover fill-298x388 width=298 height=388 %}
+                <div class="left-block-aside-nav">
+                    <div class="vers-switch-block">
+                        <a href="/~www-mh-ipad" target="_blank" class="switcher">
+                            <img src="{% static 'img/ipad-ic.png' %}" alt="">
+                            <p>iPad-версия</p>
+                        </a>
+                        <a href="/subscription/" class="switcher">
+                            <img src="{% static 'img/print-ic.png' %}" alt="">
+                            <p>Печатная версия</p>
+                        </a>
+                    </div>
+                    <div class="vers-switch-block">
+                        <a href="/~www-mh-iphone" target="_blank" class="switcher">
+                            <img src="{% static 'img/iphone-ic.png' %}" alt="">
+                            <p>iPhone-версия</p>
+                        </a>
+                        <a href="https://play.google.com/store/newsstand/details/Men_s_Health_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F?id=CAow76qeCQ"
+                           target="_blank" class="switcher">
+                            <img src="{% static 'img/android-ic.png' %}" alt="">
+                            <p>Android-версия</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text clearfix">
+                {% for block in page.body %}
+                    {% if block.block_type != 'notes' %}
+                        <section class="block-{{ block.block_type }}">
+                            {% include_block block %}
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="wrapper comments gray clearfix">
+        <div class="container">
+            <div class="comments_header clearfix">
+                <a name="comments"></a>
+                <h3>Мнения о номере</h3>
+            </div>
+        </div>
+        <div class="container comments_wrapper">
+            <section>
+                <div class="b-comments">
+                    {% for comment in page.all_comments %}
+                        {% include 'content/comment.html' %}
+                    {% endfor %}
+                </div>
+                <div class="reply-form-container">
+                    <div class="section_title clearfix">
+                        <div class="title">Добавить комментарий</div>
+                    </div>
+
+                    <div class="b-cmtForm clearfix">
+                        <form action="add_comment/" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent" value='0'>
+
+                            <div class="avatar">
+                                <img src="
+                                        {% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'img/no_avatar.png' %}{% endif %}"
+                                     alt="{{ request.user.username }}" width="60" height="60">
+                            </div>
+                            <div class="ta-holder">
+                                <textarea name="text"></textarea>
+                                <div style="margin-top: 15px;" class="g-recaptcha" data-sitekey="6Ldy-VAUAAAAAOuZc0KYktWqtby3lTsk5tiPk2ba"></div>
+                            </div>
+                            <div class="errortext">
+                            </div>
+                            <div class="b-socialset">
+                            </div>
+                            <div class="b-buttonset clearfix">
+                                <input type="submit" value="Комментировать" class="btn" onclick="
+                                    $('.social_publish input').each(function(index, element) {
+                                        if ($(element).prop('checked')) {
+                                            ga('send', 'social', $(element).val(), 'share', $(element).data('url'));
+                                        }
+                                    });">
+                                <a href="#" class="link-cancel">Отменить</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% if not request.user_agent.is_mobile %}
+        {% promo_rubric_widget %}
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

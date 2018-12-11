@@ -1,0 +1,125 @@
+.form__poll_title {
+    text-align: center !important;
+}
+
+.form__poll {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.form__poll .ui-radio{
+	background: #f2f2f2;
+	width: 50%;
+}
+.form__poll .ui-radio > label{
+	background: #f2f2f2;
+	width: 50%;
+}
+.form__poll .ui-radio span{
+
+display: block;
+width: 100%;
+text-align: center;	
+}
+.form__poll label {
+    width: 48%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.form__poll label:hover span:before {
+    background-position: 0 0;
+}
+
+.form__poll label:first-child:after {
+    content: '';
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    background-color: #d9d9d9;
+    top: 0;
+    right: -17px;
+}
+
+.form__poll label input {
+    display: none;
+}
+
+.form__poll label input:checked ~ :before {
+    background-position: 0 0;
+}
+
+.form__poll label span {
+    font-size: 16px;
+    font: normal 16px/25px Tahoma, Helvetica, sans-serif;
+    color: #000;
+}
+
+.form__poll label span:before {
+    content: '';
+    margin: 0 auto 20px;
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 26px;
+    background: url("../../img/radio_button.png") 0 -34px no-repeat;
+}
+
+.form__poll label span b {
+    font-weight: bold;
+    color: #e93700;
+}
+
+.result__polls {
+    display: none;
+}
+
+.result__polls .result_poll {
+    margin-bottom: 30px;
+}
+
+.result__polls .result_poll span {
+    font-size: 16px;
+    font: normal 16px/25px Tahoma, Helvetica, sans-serif;
+    color: #000;
+}
+
+.result__polls .result_poll span b {
+    font-weight: bold;
+    color: #e93700;
+}
+
+.result__polls .scale__result {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.result__polls .scale__result_linear {
+    height: 20px;
+    background: #00bfe6;
+}
+
+.result__polls .scale__result_number {
+    margin-left: 15px;
+    font: bold 16px/25px Tahoma, Helvetica, sans-serif;
+    color: #000;
+}
+
+@media all and (max-width: 768px) {
+    .text .box .title {
+        font: normal 24px/30px 'mhrg';
+        font-weight: bold;
+    }
+
+    .form__poll label span {
+        font: normal 16px/18px Tahoma, Helvetica, sans-serif;
+    }
+
+    .result__polls .result_poll span {
+
+        font: normal 16px/18px Tahoma, Helvetica, sans-serif;
+    }
+}

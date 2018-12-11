@@ -1,0 +1,12 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+{% load wagtailimages_tags %}
+
+{% block chooser_class %}giphy-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    {% if value %}
+        <iframe src="{{ value }}" frameBorder="0" ></iframe>
+    {% endif %}
+{% endblock %}
+
+{#{% block edit_chosen_item_url %}{% if image %}{% url 'wagtailimages:edit' image.id %}{% endif %}{% endblock %}#}

@@ -1,0 +1,42 @@
+[mysqld]
+skip-host-cache
+skip-name-resolve
+
+character-set-server            = utf8
+collation-server                = utf8_general_ci
+default-time-zone		= Europe/Moscow
+#memlock
+
+max_allowed_packet             = 1073741824
+
+# MyISAM #
+key-buffer-size                = 32M
+myisam-recover-options         = FORCE,BACKUP
+
+# SAFETY #
+max-allowed-packet             = 100G
+max-connect-errors             = 1000000
+skip-name-resolve
+innodb-strict-mode             = 1
+sql_mode=''
+
+# CACHES AND LIMITS #
+tmp-table-size                 = 32M
+max-heap-table-size            = 32M
+query-cache-type               = 0
+query-cache-size               = 0G
+max-connections                = 128
+thread-cache-size              = 128
+open-files-limit               = 65535
+table-definition-cache         = 4096
+table-open-cache               = 4096
+
+# INNODB #
+innodb-flush-method            = O_DIRECT
+innodb-log-files-in-group      = 2
+innodb-log-file-size           = 16M
+innodb-flush-log-at-trx-commit = 0
+innodb-file-per-table          = 1
+innodb-buffer-pool-size        = 4G
+innodb_write_io_threads         = 16
+innodb_read_io_threads          = 16

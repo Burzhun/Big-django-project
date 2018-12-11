@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            {% breadcrumbs page=page %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection" id="inc_block_main">
+        {% block main_section %}
+            <h1>{{ page.title }}</h1>
+            <div class="main_announce_list">
+                <a name="nav_start"></a>
+                <ul>
+                    {% for article in articles %}
+                        <li>
+                            {% include 'content/blocks/standart.html' with entry=article rubric_title_as_promo=article.rubric_title_as_promo %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if page_obj %}
+                    {% paginator paginator_obj=page_obj %}
+                {% endif %}
+            </div>
+        {% endblock %}
+    </div>
+    <div class="slidesection">
+        {% if special_tag_filter and special_tag_groups %}
+            <div class="fixed-block">
+                <div class="search-select">
+                    <div class="search-select__title">{{ special_tag_filter.title }}</div>
+                    <div class="search-select__notice">
+                        {{ special_tag_filter.description|default:'' }}
+                    </div>
+                    <div class="custom-select-wrapper group">
+                        <div class="custom-select search-select__select">
+                        <span class="custom-select-trigger">
+                            {% if special_tag_group %}
+                                {{ special_tag_group.name }}
+                            {% else %}
+                                {{ special_tag_filter.group_default_title }}
+                            {% endif %}
+                        </span>
+                            <div class="custom-options">
+                                {% for group in special_tag_groups %}
+                                    {% if special_tag_group and group == special_tag_group %}
+                                        <span class="custom-option selection"
+                                              data-value="{{ group.id }}"
+                                              data-href="{{ page.url }}?search_group={{ group.id }}">{{ group.name }}</span>
+                                    {% else %}
+                                        <span class="custom-option" data-value="{{ group.id }}"
+                                              data-href="{{ page.url }}?search_group={{ group.id }}">{{ group.name }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% for group in special_tag_groups %}
+                        <div class="custom-select-wrapper tag" data-value="{{ group.id }}"
+                            {% if not special_tag_group or not special_tag_group == group %}
+                                style="display: none;"
+                            {% endif %}>
+
+                            <div class="custom-select search-select__select">
+                            <span class="custom-select-trigger">
+                                {% if special_tag and special_tag.group == group %}
+                                    {{ special_tag.title }}
+                                {% else %}
+                                    {{ special_tag_filter.tag_default_title }}
+                                {% endif %}
+                            </span>
+                                <div class="custom-options">
+                                    {% for tag in group.tags.related_tags %}
+                                        {% if special_tag and special_tag == tag %}
+                                            <span class="custom-option selection"
+                                                  data-href="{{ page.url }}?search_tag={{ tag.id }}"
+                                                  data-value="{{ ta.id }}">{{ tag.title }}</span>
+                                        {% else %}
+                                            <span class="custom-option"
+                                                  data-href="{{ page.url }}?search_tag={{ tag.id }}"
+                                                  data-value="{{ ta.id }}">{{ tag.title }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="search-select__button-wrapper">
+                        <button class="search-select__button disabled">Показать</button>
+                        <a class="search-select__reset" href="{{ page.get_url }}">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="float-block">
+
+            {% load_banner banner_id='300x600' %}
+            <div style="margin-top: 30px">
+                {% load_banner banner_id='240x150_1' %}
+            </div>
+        </div>
+    </div>
+    {% if expert %}
+        <section id="inc_block_float" class="subsection clearfix">
+            <header class="clearfix">
+                <h3>Советы эксперта</h3>
+            </header>
+
+            <div class="expert_advices clearfix">
+                <div class="expert_info">
+                    <div class="img">
+                        {% image expert.image fill-181x243 width=181 height=243 %}
+                    </div>
+                    <div class="blogger">
+                        <a href="{{ expert.get_url }}" class="name">{{ expert.title }}</a>
+                        <div class="type">{{ expert.description|safe }}</div>
+                    </div>
+                    <a href="{{ expert.get_url }}" class="btn">Задать вопрос</a>
+                </div>
+                <div class="expert_question_block">
+                    <div class="title">Популярные вопросы</div>
+                    <ul>
+                        {% for answer in expert.top_answers %}
+                            <li><a href="{{ answer.get_url }}">{{ answer.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ expert.get_url }}" class="all_link">Все вопросы</a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

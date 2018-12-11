@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load banner_tags content_widgets wagtailimages_tags %}
+{% block rubric_block %}
+    <div class="wrapper breadcrumbs clearfix">
+        <div class="container clearfix">
+            <ol>
+                <li><a href="/">Главная</a></li>
+                <li>Теги</li>
+                <li>{{ page.title }}</li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="mainsection" id="inc_block_main">
+        {% block main_section %}
+            <h1>{{ page.title }}</h1>
+            <div class="main_announce_list">
+                <a name="nav_start"></a>
+                <ul>
+                    {% for entry in entries %}
+                        <li>
+                            <div class="subsection_title">
+                                <a href="{{ entry.get_parent.get_url }}">{{ entry.title }}</a>
+                            </div>
+
+                            <a href="{{ entry.get_url }}" class="img">
+                                {% image entry.preview_picture fill-300x215 width=300 height=215 %}
+                            </a>
+                            <div class="title">
+                                <a href="{{ entry.get_url }}">
+                                    {{ entry.title }}
+                                </a>
+                            </div>
+                            <div class="date">{{ entry.published_at|date:"j E Y" }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if page_obj %}
+                    {% paginator paginator_obj=page_obj %}
+                {% endif %}
+            </div>
+        {% endblock %}
+        <div id="inc_block_right" class="slidesection">
+            <div class="advertise">
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block extra_content %}
+    {% promo_rubric_widget %}
+{% endblock %}

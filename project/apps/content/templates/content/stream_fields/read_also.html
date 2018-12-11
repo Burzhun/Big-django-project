@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+<div class="incut_interesting">
+    {% with value.page.specific as value %}
+        <div class="subsection_title_mobile">Это интересно</div>
+        <div class="img">
+            <a href="{{  value.get_url }}" rel="nofollow">
+                {% image value.preview_picture fill-166x110 width=165 height=110 %}
+            </a>
+        </div>
+        <div class="content_box">
+            <div class="subsection_title">Это интересно</div>
+            <div class="title"><a href="{{ value.get_url }}" rel="nofollow">{{ value.title }}</a></div>
+        </div>
+    {% endwith %}
+</div>

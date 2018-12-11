@@ -1,0 +1,8 @@
+{% load menu_tags content_widgets %}
+<ul class="center_main">
+    {% for item in menu_items %}
+        <li class="{% active_class_item item %}">
+            <a href="{{ item.href }}">{{ item.text }}</a>
+        </li>
+    {% endfor %}
+</ul>

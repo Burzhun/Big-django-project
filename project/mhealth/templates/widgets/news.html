@@ -1,0 +1,21 @@
+{% load wagtailimages_tags %}
+{% load banner_tags %}
+<div class="block popular">
+	<div class="section_title">
+		<a href="/tag/novosti/">Новости</a>
+	</div>
+	<ul class="announce_sm_list">
+		{% for item in news %}
+			<li>
+				<div class="title_block">
+					<div class="subsection_title">
+						<a href="{{ item.parent_url }}">{{ item.parent_title }}</a>
+					</div>
+					<div class="title">
+						<a href="{{ item.get_url }}">{{ item.title }}</a>
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

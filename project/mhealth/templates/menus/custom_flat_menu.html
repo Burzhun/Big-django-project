@@ -1,0 +1,12 @@
+{% load menu_tags %}
+<div class="left_menu_holder">
+    <div class="left_menu_scroller">
+        <div class="left_addition">
+            {% for item in menu_items %}
+                 <li>
+                    <a href="{{ item.href }}" >{{ item.text }}</a>
+                 </li>
+            {% endfor %}
+        </div>
+    </div>
+</div>

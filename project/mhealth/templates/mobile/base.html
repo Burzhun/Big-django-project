@@ -1,0 +1,120 @@
+{% load static %}
+{% load menu_tags %}
+{% load content_widgets %}
+{% load banner_tags %}
+{% load pipeline %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    {% block seo %}
+        <meta name="title" content="{{ page.seo_title }}">
+        <meta name="description" content="{{ page.search_description }}"/>
+    {% endblock %}
+
+    <meta name="yandex-verification" content="470cf10ccb697568"/>
+    <meta name="apple-itunes-app" content="app-id=924386440, affiliate-data=, app-argument="/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+
+    {% stylesheet 'vendor_mobile' %}
+    {% stylesheet 'main_mobile' %}
+
+    {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+    {% head_mobile_scripts page=page %}
+</head>
+
+<body>
+{% block fullscreen_banner %}
+    {% load_banner banner_id='mobile_fullscreen' %}
+{% endblock %}
+
+{% block layout %}
+    <div data-role="page"
+         data-title="
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        ">
+        {% block header %}
+            {% load_banner banner_id='mobile_top' %}
+            <div data-role="header" id="header" class="ui-nodisc-icon ui-alt-icon">
+                <h1 class="ui-title">
+                    <a href="/">
+                        <img src="{% static 'img/top_logo_2.png' %}" alt="Men's Health"/>
+                    </a>
+                </h1>
+                <a href="#menu_panel" id="menu_btn" class=""></a>
+                <span class="mobile-search_btn"></span>
+                <div class="mobile-search">
+                    <form role="search" method="GET" action="/search/" name="search">
+                        <input name="q" type="search" class="form-control" name="search" value=""
+                               placeholder="Поиск ...">
+                    </form>
+                </div>
+            </div>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        {% block footer %}
+            <div data-role="footer" id="footer">
+                <div id="bottom_logo">
+                    <img src="{% static 'img/top_logo_2.png' %}" alt="Men's Health">
+                </div>
+
+                <div class="ui-grid-b social">
+                    <div class="title">Мы в социальных сетях</div>
+
+                    <div class="ui-block-a"><a href="http://www.facebook.com/MensHealthRussia" id="icon_fb"
+                                               target="_blank"></a></div>
+                    <div class="ui-block-b"><a href="http://twitter.com/#!/menshealthrus" id="icon_twitter"
+                                               target="_blank"></a></div>
+                    <div class="ui-block-c"><a href="http://vk.com/mh" id="icon_vk" target="_blank"></a></div>
+
+                    <div class="ui-block-a"><a href="https://plus.google.com/112521035276638553221" id="icon_google"
+                                               target="_blank"></a></div>
+                    <div class="ui-block-b"><a href="https://www.youtube.com/MensHealthRussia" id="icon_youtube"
+                                               target="_blank"></a></div>
+                    <div class="ui-block-c"><a href="http://www.odnoklassniki.ru/mhealth" id="icon_ok"
+                                               target="_blank"></a>
+                    </div>
+                </div>
+
+
+                <div class="copyright">
+                    <p>Материалы публикуются с разрешения Rodale Press, Inс. Все права защищены. Любое воспроизведение
+                        материалов или фрагментов из них на любом языке возможно только с письменного разрешения ООО
+                        «Москоутаймс». <a href="http://www.rambler.ru">«Партнер Рамблера»</a></p>
+                </div>
+
+            </div>
+        {% endblock %}
+    </div>
+    {% main_menu use_specific=USE_SPECIFIC_AUTO template="menus/m_custom_main_menu.html" sub_menu_template="menus/m_custom_sub_menu.html" %}
+{% endblock %}
+
+{# Global javascript #}
+
+{% javascript 'vendor_mobile' %}
+{% javascript 'main_mobile' %}
+
+
+{% block extra_js %}
+{% endblock %}
+{% footer_mobile_scripts page=page %}
+</body>
+</html>

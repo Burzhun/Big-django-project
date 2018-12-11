@@ -1,0 +1,28 @@
+{% load static %}
+{% if is_mobile %}
+    <ul id="left_addition">
+        {% for item in items %}
+            <li class="">
+                <a href="{{ item.link }}">{{ item.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <nav class="left_menu" id="drop_menu">
+        <div class="left_menu_head clearfix">
+            <img src="{% static 'img/logo_mh_bottom@2x.png' %}" alt="Men's Health">
+            <a href="#" class="left_menu_close" data-toggle="dropdown" data-target="#drop_menu">×</a>
+        </div>
+        <div class="left_menu_holder">
+            <div class="left_menu_scroller">
+                <ul id="left_addition">
+                    {% for item in items %}
+                        <li class="">
+                            <a href="{{ item.link }}">{{ item.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endif %}

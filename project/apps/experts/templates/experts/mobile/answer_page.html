@@ -1,0 +1,101 @@
+{% extends "mobile/base.html" %}
+{% load content_widgets %}
+{% load banner_tags wagtailimages_tags %}
+
+{% block content %}
+    <div role="main" class="ui-content">
+        <div class="wrapper">
+            <article>
+                <div class="lead">
+                    {% block entry_title %}
+                        <header>
+                            <h1>
+                                {% if page.full_title %}
+                                    {{ page.full_title }}
+                                {% else %}
+                                    {{ page.title }}
+                                {% endif %}
+                            </h1>
+                            {% if page.author %}
+                                <div class="header-info">
+                                    <span class="header-info-item">Спрашивает</span>
+                                    <a href="{% url 'profile' id=page.author.id %}"
+                                       class="header-info-item ui-link">{{ page.author.full_name }}</a>
+                                </div>
+                            {% endif %}
+                        </header>
+                    {% endblock %}
+                </div>
+                <div class="text">
+                    <p>{{ page.question|safe }}</p>
+                    <div class="expert_info clearfix">
+                        <div class="img">
+                            {% image expert.image fill-65x65 width=65 height=65 %}
+                        </div>
+                        <div class="blogger">
+                            <div class="type">Отвечает:</div>
+                            <div class="name"><a href="{{ expert.get_url }}">{{ expert.title }}</a></div>
+                            {% if expert.short_descrption %}
+                                <div class="type">{{ expert.short_description }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p>{{ page.answer|safe }}</p>
+                </div>
+                <div>
+                    <noindex>
+                        <ul class="social-likes">
+                            <li>
+                                <a rel="nofollow" class="social_share fb-share" data-type="fb">
+                                    <i class="l-ico">FB:</i><span class="l-count" id="fb-count"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a rel="nofollow" class="social_share vk-share" data-type="vk">
+                                    <i class="l-ico">VK:</i><span class="l-count" id="vk-count"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a rel="nofollow" class="social_share tw-share" data-type="tw">
+                                    <i class="l-ico">TW:</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </noindex>
+                </div>
+                <div data-role="controlgroup" data-type="horizontal">
+                    <form action="{{ page.get_parent.get_url }}" method="get" enctype="multipart/form-data"
+                          name="search">
+                        <input type="text" name="q" value="" id="search-control-group" placeholder="Поиск по вопросам"
+                               data-wrapper-class="controlgroup-textinput ui-btn">
+                        <button></button>
+                    </form>
+                </div>
+                {#                <a href="{{ page.get_parent.get_url }}#form" class="btn ui-link">Задать вопрос</a>#}
+                <ul data-role="listview"
+                    data-inset="true"
+                    data-icon="false"
+                    class="questions_list ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    {% for answer in answers %}
+                        <li class="ui-first-child">
+                            <a href="{{ answer.get_url }}" class="ui-btn">
+                                <div class="title">{{ answer.title }}</div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if page_obj.has_next %}
+                    <div class="show_more">
+                        <a href="" id="show_more_btn"
+                           onclick="return showMoreArticle(this);"
+                           data-url="{{ page.get_parent.get_url }}?page={{ page_obj.next_page_number }}&q=
+                                   {% if q %}{{ q }}{% endif %}"
+                           data-page="{{ page_obj.number }}"
+                           class="btn ui-link">Показать еще</a>
+                    </div>
+                {% endif %}
+            </article>
+        </div>
+        {% promo_rubric_widget %}
+    </div>
+{% endblock %}
